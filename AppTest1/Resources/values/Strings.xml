@@ -17,4 +17,25 @@
   <string name="choseBlackList">Chose contact in list</string>
   <string name="titre">Title</string>
   <string name="putMessage">Put the sms message to send to your new black list</string>
+
+  <string name="dialogTitle">Choose days</string>
+  <string name="Lundi">Monday</string>
+  <string name="Mardi">Tuesday</string>
+  <string name="Mercredi">Wednesday</string>
+  <string name="Jeudi">Thursday</string>
+  <string name="Vendredi">Friday</string>
+  <string name="Samedi">Saturday</string>
+  <string name="Dimanche">Sunday</string>
+  <string name="valider">valid</string>
+  
+  <string name="short_Lundi">Mon</string>
+  <string name="short_Mardi">Tue</string>
+  <string name="short_Mercredi">Wed</string>
+  <string name="short_Jeudi">Thu</string>
+  <string name="short_Vendredi">Fri</string>
+  <string name="short_Samedi">Sat</string>
+  <string name="short_Dimanche">Sun</string>
+  <string name="every_day">Every day</string>
+  <string name="facto_day">Weekdays</string>
+  <string name="once">Only once</string>
 </resources>

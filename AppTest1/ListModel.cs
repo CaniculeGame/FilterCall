@@ -22,6 +22,7 @@ namespace AppTest1
         private DateTime hourEnd_;
         private string commentaire_ = "aucun commentaire";
         private bool[] days_ = new bool[7];
+        private string daysStr_ = "";
 
         public ListModel(bool state, string titre, string message, List<string> contacts, DateTime start, DateTime end, bool[] days)
         {
@@ -43,6 +44,10 @@ namespace AppTest1
         public DateTime HourStart { get { return hourStart_; } set { hourStart_ = value; } }
         public string Commentaire { get { return commentaire_; } set { commentaire_ = value; } }
         public bool[] Days { get { return days_;  }  set { days_ = value; } }
+
+
+
+
 
     }
 }

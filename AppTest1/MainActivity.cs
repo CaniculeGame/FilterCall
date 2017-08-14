@@ -51,14 +51,14 @@ namespace AppTest1
         void OnListItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             Global.Instance.Position=e.Position;
-            Log.Info("info", "click item");
             StartActivity(typeof(SettingActivity));
         }
 
         void OnButtonClicked()
         {
             Global.Instance.Position = Global.InvalideValue;
-           StartActivity(typeof(SettingActivity));
+            StartActivity(typeof(SettingActivity));
+            Finish();
         }
     }
 }

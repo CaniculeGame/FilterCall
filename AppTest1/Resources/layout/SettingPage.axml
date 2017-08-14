@@ -20,7 +20,8 @@
         <EditText
             p1:layout_width="match_parent"
             p1:layout_height="wrap_content"
-            p1:id="@+id/TitleTextEdit" />
+            p1:id="@+id/TitleTextEdit"
+            p1:textColor="@color/Blue0" />
     </LinearLayout>
     <ScrollView
         p1:minWidth="25px"
@@ -45,7 +46,8 @@
             <TimePicker
                 p1:layout_width="match_parent"
                 p1:layout_height="wrap_content"
-                p1:id="@+id/timePickerStart" />
+                p1:id="@+id/timePickerStart"
+                p1:timePickerMode="spinner" />
             <TextView
                 p1:text="@string/hourEnd"
                 p1:textAppearance="?android:attr/textAppearanceMedium"
@@ -55,7 +57,8 @@
             <TimePicker
                 p1:layout_width="match_parent"
                 p1:layout_height="wrap_content"
-                p1:id="@+id/timePickerEnd" />
+                p1:id="@+id/timePickerEnd"
+                p1:timePickerMode="spinner" />
             <TextView
                 p1:text="@string/Day"
                 p1:textAppearance="?android:attr/textAppearanceMedium"
@@ -66,7 +69,12 @@
                 p1:text="@string/Days"
                 p1:layout_width="match_parent"
                 p1:layout_height="wrap_content"
-                p1:id="@+id/dayButton" />
+                p1:id="@+id/dayButton"
+                p1:textColor="@color/Blue0"
+                p1:layout_gravity="left"
+                p1:textAlignment="center"
+                p1:gravity="center_vertical"
+                p1:background="@color/Black1" />
             <TextView
                 p1:text="@string/Message"
                 p1:textAppearance="?android:attr/textAppearanceMedium"
@@ -77,7 +85,8 @@
                 p1:layout_width="match_parent"
                 p1:layout_height="wrap_content"
                 p1:id="@+id/editTextMessage"
-                p1:text="@string/putMessage" />
+                p1:text="@string/putMessage"
+                p1:textColor="@color/Blue0" />
             <TextView
                 p1:text="@string/choseBlackList"
                 p1:textAppearance="?android:attr/textAppearanceMedium"

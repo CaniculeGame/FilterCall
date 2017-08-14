@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DialogDay.cs" />
+    <Compile Include="DialogEventArgs.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="ListAdapter.cs" />
     <Compile Include="ListModel.cs" />

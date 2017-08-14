@@ -30,7 +30,8 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/RepetitionText" />
+            android:id="@+id/RepetitionText"
+            android:textColor="@color/Blue0" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"

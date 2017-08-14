@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Util;
 
 namespace AppTest1
 {
@@ -17,8 +18,9 @@ namespace AppTest1
     {
         Button saveButton = null;
         Button deleteButton = null;
-        LinearLayout deleteLayout = null;
+        bool[] tabBool = null; // tableau de boolean contenant les dates d'applications
         Button cancelButton = null;
+        Button choseDate = null;
         EditText titre = null;
         TimePicker hourEnd = null;
         TimePicker hourStart = null;
@@ -41,6 +43,22 @@ namespace AppTest1
             message = FindViewById<EditText>(Resource.Id.editTextMessage);
 
 
+            choseDate = FindViewById<Button>(Resource.Id.dayButton);
+            if (choseDate != null)
+            {
+                if (Global.Instance.isInvalidPosition)
+                    choseDate.Text = GetString(Resource.String.once);
+                else
+                {
+                    tabBool = Global.Instance.getElement(Global.Instance.Position).Days;
+                    ChooseDateString(tabBool);
+                }
+
+                choseDate.Click += delegate
+                {
+                    choseDialog();
+                };
+            }
 
             saveButton = FindViewById<Button>(Resource.Id.SaveButton);
             if (saveButton != null)
@@ -58,7 +76,7 @@ namespace AppTest1
                 if (Global.Instance.Position == Global.InvalideValue)
                 {
                     deleteButton.Enabled = false;
-                    deleteButton.SetCompoundDrawablesWithIntrinsicBounds(null,GetDrawable(Resource.Drawable.garbageDisable),null,null);
+                    deleteButton.SetCompoundDrawablesWithIntrinsicBounds(null, GetDrawable(Resource.Drawable.garbageDisable), null, null);
                 }
                 else
                 {
@@ -117,14 +135,46 @@ namespace AppTest1
 
         }
 
+        private void choseDialog()
+        {
+
+            FragmentTransaction ft = FragmentManager.BeginTransaction();
+            Fragment prev = FragmentManager.FindFragmentByTag("dialog");
+            if (prev != null)
+            {
+                ft.Remove(prev);
+            }
+
+            ft.AddToBackStack(null);
+
+            DialogDay newFragment = DialogDay.NewInstance(null);
+            newFragment.DialogClosed += OnDialogClosed;
+            //Add fragment
+            newFragment.Show(ft, "dialog");
+        }
+
+        void OnDialogClosed(object sender, DialogEventArgs e)
+        {
+            tabBool = e.ReturnValue;
+            ChooseDateString(tabBool);
+        }
 
         private void Save()
         {
             DateTime timeEnd = new DateTime(2017, 01, 01, hourEnd.Hour, hourEnd.Minute, 0);
             DateTime timeStart = new DateTime(2017, 01, 01, hourStart.Hour, hourStart.Minute, 0);
 
-            ListModel newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd,null);
-            Global.Instance.Add(newItem);
+            ListModel newItem = null;
+            if (tabBool != null)
+                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, tabBool);
+            else
+                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, new bool[] { false,false,false,false,false,false,false});
+
+            if (Global.Instance.isInvalidPosition)
+                Global.Instance.Add(newItem);
+            else
+                Global.Instance.setElement(Global.Instance.Position,newItem);
+
             Global.Instance.Save();
         }
 
@@ -138,6 +188,79 @@ namespace AppTest1
         private void ChangeActivity()
         {
             StartActivity(typeof(MainActivity));
+            Finish();
+        }
+
+
+
+        private void ChooseDateString(bool[] tab)
+        {
+            short count = 0;
+            bool weekdays = true;
+            string mess = "";
+
+            if (tab != null)
+            {
+                for (int i = 0; i < tab.Length; i++)
+                {
+                    //compte le nombre de jour validé, si 0 = once, si 7 = all, si 5 = week day
+                    if (tab[i] == true)
+                    {
+                        if(i != 0)
+                            mess += ",";
+
+                        count++;
+                        switch (i)
+                        {
+                            case 0:
+                                mess = mess + GetString(Resource.String.short_Lundi);
+                                break;
+
+                            case 1:
+                                mess = mess + GetString(Resource.String.short_Mardi);
+                                break;
+
+                            case 2:
+                                mess = mess + GetString(Resource.String.short_Mercredi);
+                                break;
+
+                            case 3:
+                                mess = mess + GetString(Resource.String.short_Jeudi);
+                                break;
+
+                            case 4:
+                                mess = mess + GetString(Resource.String.short_Vendredi);
+                                break;
+
+                            case 5:
+                                mess = mess + GetString(Resource.String.short_Samedi);
+                                break;
+
+                            case 6:
+                                mess = mess + GetString(Resource.String.short_Dimanche);
+                                break;
+                        }
+                    }
+                    else if (i < 5)
+                        weekdays = false;
+
+                    if (weekdays == true && tab[i] == true && i > 5)
+                        weekdays = false;
+                }
+
+
+
+                if (count == tab.Length)
+                    choseDate.Text = GetString(Resource.String.every_day);
+                else if (count == 0)
+                    choseDate.Text = GetString(Resource.String.once);
+                else if (weekdays == true)
+                    choseDate.Text = GetString(Resource.String.facto_day);
+                else
+                    choseDate.Text = mess;
+            }
+            else
+                choseDate.Text = GetString(Resource.String.once);
         }
     }
 }
