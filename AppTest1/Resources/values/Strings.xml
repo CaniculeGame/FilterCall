@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">AppTest1</string>
+  <string name="Hello">Hello World, Click Me!</string>
+  <string name="ApplicationName">AppTest1</string>
+  <string name="addMain">Add</string>
+  <string name="plus">+</string>
+  <string name="listeTitre">Block List </string>
+  <string name="save">Save </string>
+  <string name="cancel">Cancel</string>
+  <string name="del">Delete</string>
+
+  <string name="hourStart">Set Start Hour</string>
+  <string name="hourEnd">Set End Hour</string>
+  <string name="Day">Set day</string>
+  <string name="Message">Message</string>
+  <string name="Days">days</string>
+  <string name="choseBlackList">Chose contact in list</string>
+  <string name="titre">Title</string>
+  <string name="putMessage">Put the sms message to send to your new black list</string>
 </resources>

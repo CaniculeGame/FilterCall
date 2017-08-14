@@ -3,25 +3,61 @@
     p1:orientation="vertical"
     p1:layout_width="match_parent"
     p1:layout_height="match_parent"
-    p1:id="@+id/linearLayout1">
-    <TextView
-        p1:text="Large Text"
-        p1:textAppearance="?android:attr/textAppearanceLarge"
+    p1:id="@+id/linearLayout1"
+    p1:background="@color/Black1">
+    <LinearLayout
+        p1:orientation="vertical"
+        p1:minWidth="25px"
+        p1:minHeight="25px"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/Li" />
-    <EditText
+        p1:id="@+id/linearLayout2"
+        p1:layout_gravity="top"
+        p1:layout_weight="5">
+        <TextView
+            p1:text="@string/listeTitre"
+            p1:textAppearance="?android:attr/textAppearanceMedium"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/titreMain"
+            p1:textColor="@color/White0" />
+        <ListView
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:layout_width="match_parent"
+            p1:layout_height="match_parent"
+            p1:id="@+id/MainListView" />
+    </LinearLayout>
+    <LinearLayout
+        p1:orientation="vertical"
+        p1:minWidth="25px"
+        p1:minHeight="25px"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/editText1" />
-    <Button
-        p1:text="Button"
-        p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
-        p1:id="@+id/button1" />
-    <Button
-        p1:text="Button"
-        p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
-        p1:id="@+id/button2" />
+        p1:id="@+id/linearLayout3"
+        p1:layout_gravity="bottom">
+        <Toolbar
+            p1:background="@color/Black0"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/toolbar1">
+            <LinearLayout
+                p1:orientation="vertical"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/linearLayout4"
+                p1:layout_gravity="center"
+                p1:background="@color/Black0">
+                <Button
+                    p1:text="@string/addMain"
+                    p1:id="@+id/AddButton"
+                    p1:layout_width="match_parent"
+                    p1:layout_height="wrap_content"
+                    p1:background="@color/Black0"
+                    p1:textColor="@color/White0"
+                    p1:textSize="10dp"
+                    p1:drawableTop="@drawable/add" />
+            </LinearLayout>
+        </Toolbar>
+    </LinearLayout>
 </LinearLayout>

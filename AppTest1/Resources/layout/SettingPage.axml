@@ -1,1 +1,155 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:orientation="vertical"
+    p1:layout_width="fill_parent"
+    p1:layout_height="fill_parent"
+    p1:id="@+id/linearLayout1">
+    <LinearLayout
+        p1:layout_width="fill_parent"
+        p1:layout_height="wrap_content"
+        p1:orientation="vertical"
+        p1:id="@+id/linearLayout3"
+        p1:layout_gravity="top"
+        p1:background="@color/Black0">
+        <TextView
+            p1:text="@string/titre"
+            p1:textAppearance="?android:attr/textAppearanceMedium"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/TitleInstructionText" />
+        <EditText
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/TitleTextEdit" />
+    </LinearLayout>
+    <ScrollView
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/scrollView1"
+        p1:layout_gravity="center"
+        p1:layout_weight="4"
+        p1:background="@color/Black1">
+        <LinearLayout
+            p1:orientation="vertical"
+            p1:layout_width="match_parent"
+            p1:layout_height="match_parent"
+            p1:id="@+id/linearLayout4">
+            <TextView
+                p1:text="@string/hourStart"
+                p1:textAppearance="?android:attr/textAppearanceMedium"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/hourStart" />
+            <TimePicker
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/timePickerStart" />
+            <TextView
+                p1:text="@string/hourEnd"
+                p1:textAppearance="?android:attr/textAppearanceMedium"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/hourEnd" />
+            <TimePicker
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/timePickerEnd" />
+            <TextView
+                p1:text="@string/Day"
+                p1:textAppearance="?android:attr/textAppearanceMedium"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/choseDays" />
+            <Button
+                p1:text="@string/Days"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/dayButton" />
+            <TextView
+                p1:text="@string/Message"
+                p1:textAppearance="?android:attr/textAppearanceMedium"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/textMessage" />
+            <EditText
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/editTextMessage"
+                p1:text="@string/putMessage" />
+            <TextView
+                p1:text="@string/choseBlackList"
+                p1:textAppearance="?android:attr/textAppearanceMedium"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/Contacts" />
+            <ListView
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:layout_width="match_parent"
+                p1:layout_height="match_parent"
+                p1:id="@+id/listView1" />
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        p1:layout_width="fill_parent"
+        p1:layout_height="wrap_content"
+        p1:layout_gravity="bottom"
+        p1:background="@color/Black0">
+        <Toolbar
+            p1:background="@color/Black0"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/toolbar1"
+            p1:layout_marginTop="0.0dp">
+            <LinearLayout
+                p1:orientation="vertical"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/deleteLayout"
+                p1:layout_gravity="right">
+                <Button
+                    p1:id="@+id/DelButton"
+                    p1:layout_width="match_parent"
+                    p1:layout_height="wrap_content"
+                    p1:background="@color/Black0"
+                    p1:text="@string/del"
+                    p1:textSize="10dp"
+                    p1:drawableTop="@drawable/delete" />
+            </LinearLayout>
+            <LinearLayout
+                p1:orientation="vertical"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/linearLayout6"
+                p1:layout_gravity="right">
+                <Button
+                    p1:id="@+id/CancelButton"
+                    p1:layout_width="match_parent"
+                    p1:layout_height="wrap_content"
+                    p1:background="@color/Black0"
+                    p1:drawableTop="@drawable/cancel"
+                    p1:text="@string/cancel"
+                    p1:textSize="10dp" />
+            </LinearLayout>
+            <LinearLayout
+                p1:orientation="vertical"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/linearLayout7"
+                p1:layout_gravity="right"
+                p1:minWidth="25px"
+                p1:minHeight="25px">
+                <Button
+                    p1:id="@+id/SaveButton"
+                    p1:layout_width="match_parent"
+                    p1:layout_height="wrap_content"
+                    p1:text="@string/save"
+                    p1:textSize="10dp"
+                    p1:drawableTop="@drawable/save"
+                    p1:background="@color/Black0" />
+            </LinearLayout>
+        </Toolbar>
+    </LinearLayout>
+</LinearLayout>
