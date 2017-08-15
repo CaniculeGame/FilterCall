@@ -93,12 +93,20 @@
                 p1:layout_width="match_parent"
                 p1:layout_height="wrap_content"
                 p1:id="@+id/Contacts" />
-            <ListView
+            <LinearLayout
+                p1:orientation="vertical"
                 p1:minWidth="25px"
                 p1:minHeight="25px"
                 p1:layout_width="match_parent"
-                p1:layout_height="match_parent"
-                p1:id="@+id/listView1" />
+                p1:layout_height="wrap_content"
+                p1:id="@+id/linearLayoutScroll">
+                <ListView
+                    p1:minWidth="25px"
+                    p1:minHeight="25px"
+                    p1:layout_width="match_parent"
+                    p1:layout_height="match_parent"
+                    p1:id="@+id/contactListView" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <LinearLayout

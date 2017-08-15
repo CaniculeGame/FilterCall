@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using Android.Provider;
+using Android.Database;
 
 namespace AppTest1
 {
@@ -25,7 +27,10 @@ namespace AppTest1
         TimePicker hourEnd = null;
         TimePicker hourStart = null;
         EditText message = null;
+        ListView contactListView = null;
 
+
+        List<ListModelContact> contactList = null;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -101,6 +106,47 @@ namespace AppTest1
             }
 
 
+            contactListView = FindViewById<ListView>(Resource.Id.contactListView);
+            if (contactListView != null)
+            {
+                contactList = new List<ListModelContact>();
+
+
+                var uri = ContactsContract.Contacts.ContentUri;
+                string[] projection = {
+                    ContactsContract.Contacts.InterfaceConsts.Id,
+                    ContactsContract.Contacts.InterfaceConsts.DisplayName,
+                    ContactsContract.Contacts.InterfaceConsts.HasPhoneNumber
+                };
+
+                var loader = new CursorLoader(this, uri, projection, null, null, null);
+                var cursor = (ICursor)loader.LoadInBackground();
+
+                if (cursor.MoveToFirst())
+                {
+                    do
+                    {
+                        int num = 0618811826;
+                        /*if (int.Parse(cursor.GetString(cursor.GetColumnIndex(projection[2]))) > 0)
+                        {
+
+                        }*/
+
+                        contactList.Add(new ListModelContact(cursor.GetString(cursor.GetColumnIndex(projection[1])),
+                            num,
+                            cursor.GetInt(cursor.GetColumnIndex(projection[0]))));
+
+                        //Log.Info("info", cursor.GetString(cursor.GetColumnIndex(projection[1])));
+                    } while (cursor.MoveToNext());
+                }
+
+
+                Log.Info("info", contactList.Count.ToString());
+
+                contactListView.Adapter = new ListContactAdapter(this, contactList);
+                FindViewById<LinearLayout>(Resource.Id.linearLayoutScroll).LayoutParameters.Height = 110 * contactList.Count;
+            }
+
 
             if (Global.Instance.Position != Global.InvalideValue)
             {
@@ -168,12 +214,12 @@ namespace AppTest1
             if (tabBool != null)
                 newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, tabBool);
             else
-                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, new bool[] { false,false,false,false,false,false,false});
+                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, new bool[] { false, false, false, false, false, false, false });
 
             if (Global.Instance.isInvalidPosition)
                 Global.Instance.Add(newItem);
             else
-                Global.Instance.setElement(Global.Instance.Position,newItem);
+                Global.Instance.setElement(Global.Instance.Position, newItem);
 
             Global.Instance.Save();
         }
@@ -206,7 +252,7 @@ namespace AppTest1
                     //compte le nombre de jour validé, si 0 = once, si 7 = all, si 5 = week day
                     if (tab[i] == true)
                     {
-                        if(i != 0)
+                        if (i != 0)
                             mess += ",";
 
                         count++;
