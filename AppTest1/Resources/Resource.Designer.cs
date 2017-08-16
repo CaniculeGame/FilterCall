@@ -282,6 +282,12 @@ namespace AppTest1
 			// aapt resource value: 0x7f050002
 			public const int addMain = 2131034114;
 			
+			// aapt resource value: 0x7f050024
+			public const int alerte = 2131034148;
+			
+			// aapt resource value: 0x7f050025
+			public const int alerteMessage = 2131034149;
+			
 			// aapt resource value: 0x7f050006
 			public const int cancel = 2131034118;
 			
@@ -308,6 +314,9 @@ namespace AppTest1
 			
 			// aapt resource value: 0x7f050004
 			public const int listeTitre = 2131034116;
+			
+			// aapt resource value: 0x7f050026
+			public const int ok = 2131034150;
 			
 			// aapt resource value: 0x7f050022
 			public const int once = 2131034146;
@@ -344,6 +353,9 @@ namespace AppTest1
 			
 			// aapt resource value: 0x7f05000e
 			public const int titre = 2131034126;
+			
+			// aapt resource value: 0x7f050023
+			public const int tteJournee = 2131034147;
 			
 			// aapt resource value: 0x7f050018
 			public const int valider = 2131034136;

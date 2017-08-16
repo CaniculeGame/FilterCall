@@ -9,6 +9,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Text.Format;
+using Java.Text;
 
 namespace AppTest1
 {
@@ -51,9 +53,40 @@ namespace AppTest1
                 view = context.LayoutInflater.Inflate(Resource.Layout.RowModel, null);
 
             view.FindViewById<TextView>(Resource.Id.TitreListText).Text = item.Titre;
-            view.FindViewById<TextView>(Resource.Id.CommentaireListText).Text = item.HourStart.Hour+":"+item.HourStart.Minute + " - " + item.HourEnd.Hour+":"+item.HourEnd.Minute;
             view.FindViewById<TextView>(Resource.Id.RepetitionText).Text = ChooseDateString(item.Days);
-            view.FindViewById<Switch>(Resource.Id.switchOnOff).Checked = item.SwitchState;
+
+
+            if (item.HourStart.Hour == 0 && item.HourStart.Minute == 0 && item.HourEnd.Hour == 0 && item.HourEnd.Minute == 0)
+                view.FindViewById<TextView>(Resource.Id.CommentaireListText).Text = context.GetString(Resource.String.tteJournee);
+            else if (Android.Text.Format.DateFormat.Is24HourFormat(parent.Context))
+                view.FindViewById<TextView>(Resource.Id.CommentaireListText).Text = item.HourStart.Hour + ":" + item.HourStart.Minute + " - " + item.HourEnd.Hour + ":" + item.HourEnd.Minute;
+            else
+            {
+                string str = "";
+                if (item.HourStart.Hour >= 12)
+                    str = (item.HourStart.Hour - 12) + ":" + item.HourStart.Minute + " PM - ";
+                if (item.HourStart.Hour < 12)
+                    str = (item.HourStart.Hour) + ":" + item.HourStart.Minute + " Am - ";
+
+                if (item.HourEnd.Hour >= 12)
+                    str += (item.HourEnd.Hour - 12) + ":" + item.HourEnd.Minute + " PM";
+                if (item.HourEnd.Hour < 12)
+                    str += (item.HourEnd.Hour) + ":" + item.HourEnd.Minute + " Am";
+
+                view.FindViewById<TextView>(Resource.Id.CommentaireListText).Text = str;
+            }
+
+
+
+            Switch sw = view.FindViewById<Switch>(Resource.Id.switchOnOff);
+            sw.Checked = item.SwitchState;
+            sw.Click += delegate 
+            {
+                item.SwitchState = !item.SwitchState;
+                Global.Instance.Save();
+            };
+
+
             return view;
         }
 

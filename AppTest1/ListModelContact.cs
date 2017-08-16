@@ -15,12 +15,12 @@ namespace AppTest1
     class ListModelContact
     {
         private string nom_ = "";
-        private int numero_ = 0;
+        private string numero_ = "0";
         private int id_ = 0;
         private bool selectionne_ = false;
 
 
-        public ListModelContact (string nom, int numero , int id, bool selectionne = false)
+        public ListModelContact (string nom, string numero , int id, bool selectionne = false)
         {
             selectionne_ = selectionne;
             id_ = id;
@@ -29,7 +29,7 @@ namespace AppTest1
         }
 
         public string Nom { get { return nom_; } set { nom_ = value; } }
-        public int Numero { get { return numero_; } set { numero_ = value; } }
+        public string Numero { get { return numero_; } set { numero_ = value; } }
         public bool setSelectionne { set { selectionne_ = value; } }
         public bool isSelectionne { get { return selectionne_ == true ? true : false; } }
 

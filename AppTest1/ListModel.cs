@@ -22,7 +22,7 @@ namespace AppTest1
         private DateTime hourEnd_;
         private string commentaire_ = "aucun commentaire";
         private bool[] days_ = new bool[7];
-        private string daysStr_ = "";
+        //private string daysStr_ = "";
 
         public ListModel(bool state, string titre, string message, List<string> contacts, DateTime start, DateTime end, bool[] days)
         {

@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Util;
 using Android.Provider;
 using Android.Database;
+using Android.Text.Format;
 
 namespace AppTest1
 {
@@ -43,8 +44,6 @@ namespace AppTest1
 
 
             titre = FindViewById<EditText>(Resource.Id.TitleTextEdit);
-            hourEnd = FindViewById<TimePicker>(Resource.Id.timePickerEnd);
-            hourStart = FindViewById<TimePicker>(Resource.Id.timePickerStart);
             message = FindViewById<EditText>(Resource.Id.editTextMessage);
 
 
@@ -70,8 +69,16 @@ namespace AppTest1
             {
                 saveButton.Click += delegate
                 {
-                    Save();
-                    ChangeActivity();
+                    if (Save())
+                        ChangeActivity();
+                    else
+                    {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                        alert.SetTitle(Resource.String.alerte);
+                        alert.SetMessage(Resource.String.alerteMessage);
+                        Dialog dialog = alert.Create();
+                        dialog.Show();
+                    }
                 };
             }
 
@@ -121,30 +128,52 @@ namespace AppTest1
 
                 var loader = new CursorLoader(this, uri, projection, null, null, null);
                 var cursor = (ICursor)loader.LoadInBackground();
-
+               
                 if (cursor.MoveToFirst())
                 {
                     do
                     {
-                        int num = 0618811826;
-                        /*if (int.Parse(cursor.GetString(cursor.GetColumnIndex(projection[2]))) > 0)
+                        string num = "0";
+                     /*   if (int.Parse(cursor.GetString(cursor.GetColumnIndex(projection[2]))) > 0)
                         {
+                            var uriPhoneNumber = ContactsContract.CommonDataKinds.Phone.ContentUri;
+                            string[] projectionPhoneNumber = { ContactsContract.Contacts.InterfaceConsts.Id, ContactsContract.CommonDataKinds.Phone.Number };
+                            var phoneLoader = new CursorLoader(this,uriPhoneNumber, projectionPhoneNumber, null, null, null);
+                            var cursorPhone = (ICursor)phoneLoader.LoadInBackground();
 
+
+                          //  num = cursorPhone.GetString(cursorPhone.GetColumnIndex(projectionPhoneNumber[1]));
+                            
                         }*/
 
                         contactList.Add(new ListModelContact(cursor.GetString(cursor.GetColumnIndex(projection[1])),
                             num,
                             cursor.GetInt(cursor.GetColumnIndex(projection[0]))));
 
-                        //Log.Info("info", cursor.GetString(cursor.GetColumnIndex(projection[1])));
                     } while (cursor.MoveToNext());
                 }
 
 
-                Log.Info("info", contactList.Count.ToString());
+              //  Log.Info("info", contactList.Count.ToString());
 
                 contactListView.Adapter = new ListContactAdapter(this, contactList);
                 FindViewById<LinearLayout>(Resource.Id.linearLayoutScroll).LayoutParameters.Height = 110 * contactList.Count;
+            }
+
+
+            hourEnd = FindViewById<TimePicker>(Resource.Id.timePickerEnd);
+            if(hourEnd != null)
+            {
+                if (DateFormat.Is24HourFormat(this))
+                    hourEnd.SetIs24HourView(Java.Lang.Boolean.True);
+            }
+
+
+            hourStart = FindViewById<TimePicker>(Resource.Id.timePickerStart);
+            if(hourStart != null)
+            {
+                if(DateFormat.Is24HourFormat(this))
+                 hourStart.SetIs24HourView(Java.Lang.Boolean.True);
             }
 
 
@@ -179,6 +208,9 @@ namespace AppTest1
                 message.Text = GetString(Resource.String.Message);
             }
 
+
+            FindViewById<LinearLayout>(Resource.Id.linearLayout1).RequestFocus();
+            
         }
 
         private void choseDialog()
@@ -205,10 +237,13 @@ namespace AppTest1
             ChooseDateString(tabBool);
         }
 
-        private void Save()
+        private bool Save()
         {
             DateTime timeEnd = new DateTime(2017, 01, 01, hourEnd.Hour, hourEnd.Minute, 0);
             DateTime timeStart = new DateTime(2017, 01, 01, hourStart.Hour, hourStart.Minute, 0);
+
+            if(timeEnd.CompareTo(timeStart) < 0)
+                return false;
 
             ListModel newItem = null;
             if (tabBool != null)
@@ -222,6 +257,7 @@ namespace AppTest1
                 Global.Instance.setElement(Global.Instance.Position, newItem);
 
             Global.Instance.Save();
+            return true;
         }
 
         private void Delete()

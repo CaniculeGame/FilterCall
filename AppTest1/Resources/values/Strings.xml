@@ -38,4 +38,10 @@
   <string name="every_day">Every day</string>
   <string name="facto_day">Weekdays</string>
   <string name="once">Only once</string>
+  
+  <string name="tteJournee">All Day</string>
+  <string name="alerte">Alert</string>
+  <string name="alerteMessage">Hour End is greater than Start !!</string>
+  <string name="ok">Ok</string>
+  
 </resources>
