@@ -5,6 +5,7 @@ using Android.Views;
 using System;
 using System.Collections.Generic;
 using Android.Util;
+using Android.Content;
 
 namespace AppTest1
 {
@@ -38,19 +39,21 @@ namespace AppTest1
 
 
             mainListView = FindViewById<ListView>(Resource.Id.MainListView);
-            if(mainListView != null)
+            if (mainListView != null)
             {
                 mainListView.Adapter = new ListAdapter(this, Global.Instance.getList);
                 mainListView.ItemClick += OnListItemClick;
             }
 
 
+           // Intent myIntent = new Intent(this, typeof(MainService));
+           // StartService(myIntent);
         }
 
 
         void OnListItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Global.Instance.Position=e.Position;
+            Global.Instance.Position = e.Position;
             StartActivity(typeof(SettingActivity));
         }
 
@@ -62,4 +65,3 @@ namespace AppTest1
         }
     }
 }
-

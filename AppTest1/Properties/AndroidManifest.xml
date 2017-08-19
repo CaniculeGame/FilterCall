@@ -2,5 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="AppTest1.AppTest1" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="16" />
 	<uses-permission android:name="android.permission.READ_CONTACTS" />
+	<uses-permission android:name="android.permission.SEND_SMS" />
+	<uses-permission android:name="android.permission.SEND_RESPOND_VIA_MESSAGE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.REBOOT" />
+	<uses-permission android:name="android.permission.RECEIVE_SMS" />
+	<uses-permission android:name="android.permission.RECEIVE_MMS" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<application android:label="AppTest1"></application>
 </manifest>
