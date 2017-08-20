@@ -22,9 +22,10 @@ namespace AppTest1
         private DateTime hourEnd_;
         private string commentaire_ = "aucun commentaire";
         private bool[] days_ = new bool[7];
+        private bool invert_ = false;
         //private string daysStr_ = "";
 
-        public ListModel(bool state, string titre, string message, List<string> contacts, DateTime start, DateTime end, bool[] days)
+        public ListModel(bool state, string titre, string message, List<string> contacts, DateTime start, DateTime end, bool[] days, bool invert)
         {
             switchState_ = state;
             titre_ = titre;
@@ -33,6 +34,7 @@ namespace AppTest1
             hourStart_ = start;
             hourEnd_ = end;
             days_ = days;
+            invert_ = invert;
         }
 
 
@@ -44,6 +46,7 @@ namespace AppTest1
         public DateTime HourStart { get { return hourStart_; } set { hourStart_ = value; } }
         public string Commentaire { get { return commentaire_; } set { commentaire_ = value; } }
         public bool[] Days { get { return days_;  }  set { days_ = value; } }
+        public bool Invert { get { return invert_; } set { invert_ = value; } }
 
 
 

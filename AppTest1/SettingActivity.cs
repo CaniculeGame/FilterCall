@@ -29,7 +29,8 @@ namespace AppTest1
         TimePicker hourStart = null;
         EditText message = null;
         ListView contactListView = null;
-
+        bool switchTime = false;
+        Button buttonTime = null;
 
         List<ListModelContact> contactList = null;
 
@@ -46,6 +47,7 @@ namespace AppTest1
             titre = FindViewById<EditText>(Resource.Id.TitleTextEdit);
             message = FindViewById<EditText>(Resource.Id.editTextMessage);
 
+            switchTime = false;
 
             choseDate = FindViewById<Button>(Resource.Id.dayButton);
             if (choseDate != null)
@@ -128,23 +130,23 @@ namespace AppTest1
 
                 var loader = new CursorLoader(this, uri, projection, null, null, null);
                 var cursor = (ICursor)loader.LoadInBackground();
-               
+
                 if (cursor.MoveToFirst())
                 {
                     do
                     {
                         string num = "0";
-                     /*   if (int.Parse(cursor.GetString(cursor.GetColumnIndex(projection[2]))) > 0)
-                        {
-                            var uriPhoneNumber = ContactsContract.CommonDataKinds.Phone.ContentUri;
-                            string[] projectionPhoneNumber = { ContactsContract.Contacts.InterfaceConsts.Id, ContactsContract.CommonDataKinds.Phone.Number };
-                            var phoneLoader = new CursorLoader(this,uriPhoneNumber, projectionPhoneNumber, null, null, null);
-                            var cursorPhone = (ICursor)phoneLoader.LoadInBackground();
+                        /*   if (int.Parse(cursor.GetString(cursor.GetColumnIndex(projection[2]))) > 0)
+                           {
+                               var uriPhoneNumber = ContactsContract.CommonDataKinds.Phone.ContentUri;
+                               string[] projectionPhoneNumber = { ContactsContract.Contacts.InterfaceConsts.Id, ContactsContract.CommonDataKinds.Phone.Number };
+                               var phoneLoader = new CursorLoader(this,uriPhoneNumber, projectionPhoneNumber, null, null, null);
+                               var cursorPhone = (ICursor)phoneLoader.LoadInBackground();
 
 
-                          //  num = cursorPhone.GetString(cursorPhone.GetColumnIndex(projectionPhoneNumber[1]));
-                            
-                        }*/
+                             //  num = cursorPhone.GetString(cursorPhone.GetColumnIndex(projectionPhoneNumber[1]));
+
+                           }*/
 
                         contactList.Add(new ListModelContact(cursor.GetString(cursor.GetColumnIndex(projection[1])),
                             num,
@@ -154,7 +156,7 @@ namespace AppTest1
                 }
 
 
-              //  Log.Info("info", contactList.Count.ToString());
+                //  Log.Info("info", contactList.Count.ToString());
 
                 contactListView.Adapter = new ListContactAdapter(this, contactList);
                 FindViewById<LinearLayout>(Resource.Id.linearLayoutScroll).LayoutParameters.Height = 110 * contactList.Count;
@@ -162,20 +164,38 @@ namespace AppTest1
 
 
             hourEnd = FindViewById<TimePicker>(Resource.Id.timePickerEnd);
-            if(hourEnd != null)
+            if (hourEnd != null)
             {
                 if (DateFormat.Is24HourFormat(this))
                     hourEnd.SetIs24HourView(Java.Lang.Boolean.True);
+
+                hourEnd.TimeChanged += delegate 
+                {
+                    SetTimeFormat(hourStart, hourEnd, switchTime);
+                };
             }
 
 
             hourStart = FindViewById<TimePicker>(Resource.Id.timePickerStart);
-            if(hourStart != null)
+            if (hourStart != null)
             {
-                if(DateFormat.Is24HourFormat(this))
-                 hourStart.SetIs24HourView(Java.Lang.Boolean.True);
+                if (DateFormat.Is24HourFormat(this))
+                    hourStart.SetIs24HourView(Java.Lang.Boolean.True);
+
+                hourStart.TimeChanged += delegate
+                {
+                    SetTimeFormat(hourStart, hourEnd, switchTime);
+                };
             }
 
+            buttonTime = FindViewById<Button>(Resource.Id.buttonInvertTps);
+            if (buttonTime != null)
+            {
+                buttonTime.Click += delegate
+                {
+                    ChangeInvertTime();
+                };
+            }
 
             if (Global.Instance.Position != Global.InvalideValue)
             {
@@ -187,6 +207,10 @@ namespace AppTest1
                     hourStart.Hour = Global.Instance.GetElement(Global.Instance.Position).HourStart.Hour;
                     hourStart.Minute = Global.Instance.GetElement(Global.Instance.Position).HourStart.Minute;
                     message.Text = Global.Instance.GetElement(Global.Instance.Position).MessageText;
+
+                    switchTime = Global.Instance.GetElement(Global.Instance.Position).Invert;
+                    SetTimeFormat(hourStart, hourEnd, switchTime);
+
                 }
                 else
                 {
@@ -196,6 +220,7 @@ namespace AppTest1
                     hourEnd.Minute = 0;
                     hourStart.Minute = 0;
                     message.Text = GetString(Resource.String.Message);
+                    buttonTime.Text = GetString(Resource.String.tteJournee);
                 }
             }
             else
@@ -206,11 +231,52 @@ namespace AppTest1
                 hourEnd.Minute = 0;
                 hourStart.Minute = 0;
                 message.Text = GetString(Resource.String.Message);
+                buttonTime.Text = GetString(Resource.String.tteJournee);
             }
 
 
             FindViewById<LinearLayout>(Resource.Id.linearLayout1).RequestFocus();
-            
+
+        }
+
+        private void SetTimeFormat(TimePicker deb, TimePicker fin, bool inv)
+        {
+            string message = "";
+            if (deb.Hour == 0 && deb.Minute == 0 && fin.Hour == 0 && fin.Minute == 0)
+            {
+                message = GetString(Resource.String.tteJournee);
+            }
+            else
+            {
+                if (inv)
+                {
+                    Log.Info("info", "invert");
+
+                    message = GetString(Resource.String.from) +  "  00:00  " + GetString(Resource.String.to) +" "+ deb.Hour.ToString("00") + ":" + deb.Minute.ToString("00") + "  "
+                            + GetString(Resource.String.and) +"  "+ fin.Hour.ToString("00") + ":" + fin.Minute.ToString("00") + "  " +GetString(Resource.String.to) + "  23:59";
+
+                }
+                else
+                {
+                    Log.Info("info", "No invert");
+                    if (Android.Text.Format.DateFormat.Is24HourFormat(this))
+                        message = deb.Hour.ToString("00") + ":" + deb.Minute.ToString("00") + " - " + fin.Hour.ToString("00") + ":" + fin.Minute.ToString("00");
+                    else
+                    {
+                        if (deb.Hour >= 12)
+                            message = (deb.Hour - 12).ToString("00") + ":" + deb.Minute.ToString("00") + " PM - ";
+                        if (deb.Hour < 12)
+                            message = deb.Hour.ToString("00") + ":" + deb.Minute.ToString("00") + " Am - ";
+
+                        if (fin.Hour >= 12)
+                            message += (fin.Hour - 12).ToString("00") + ":" + fin.Minute.ToString("00") + " PM";
+                        if (fin.Hour < 12)
+                            message += fin.Hour.ToString("00") + ":" + fin.Minute.ToString("00") + " Am";
+
+                    }
+                }
+            }
+            buttonTime.Text = message;
         }
 
         private void ChoseDialog()
@@ -242,14 +308,14 @@ namespace AppTest1
             DateTime timeEnd = new DateTime(2017, 01, 01, hourEnd.Hour, hourEnd.Minute, 0);
             DateTime timeStart = new DateTime(2017, 01, 01, hourStart.Hour, hourStart.Minute, 0);
 
-            if(timeEnd.CompareTo(timeStart) < 0)
+            if (timeEnd.CompareTo(timeStart) < 0)
                 return false;
 
             ListModel newItem = null;
             if (tabBool != null)
-                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, tabBool);
+                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, tabBool, switchTime);
             else
-                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, new bool[] { false, false, false, false, false, false, false });
+                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, new bool[] { false, false, false, false, false, false, false }, switchTime);
 
             if (Global.Instance.IsInvalidPosition)
                 Global.Instance.Add(newItem);
@@ -266,14 +332,11 @@ namespace AppTest1
                 Global.Instance.GetList.RemoveAt(Global.Instance.Position);
         }
 
-
         private void ChangeActivity()
         {
             StartActivity(typeof(MainActivity));
             Finish();
         }
-
-
 
         private void ChooseDateString(bool[] tab)
         {
@@ -344,5 +407,16 @@ namespace AppTest1
             else
                 choseDate.Text = GetString(Resource.String.once);
         }
+
+        private void ChangeInvertTime()
+        {
+            if (buttonTime != null)
+            {
+                switchTime = !switchTime;
+                SetTimeFormat(hourStart, hourEnd, switchTime);
+
+            }
+        }
+
     }
 }

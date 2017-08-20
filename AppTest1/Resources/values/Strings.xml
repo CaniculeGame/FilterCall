@@ -46,5 +46,10 @@
   <string name="ok">Ok</string>
   <string name="appLancee">App is running. Black List are enable</string>
   <string name="bootStart">Boot start app </string>
-  
+
+  <string name="invertTps">Invert Time </string>
+  <string name="to"> To </string>
+  <string name="and"> And </string>
+  <string name="from"> From </string>
+
 </resources>

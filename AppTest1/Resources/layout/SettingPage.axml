@@ -60,7 +60,31 @@
                 p1:layout_width="match_parent"
                 p1:layout_height="wrap_content"
                 p1:id="@+id/timePickerEnd"
-                p1:timePickerMode="spinner" />
+                p1:timePickerMode="spinner"
+                p1:minWidth="25px"
+                p1:minHeight="25px" />
+            <TextView
+                p1:text="@string/invertTps"
+                p1:textAppearance="?android:attr/textAppearanceMedium"
+                p1:id="@+id/textinvertTps"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content" />
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/linearLayout8">
+                <Button
+                    p1:layout_width="match_parent"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/buttonInvertTps"
+                    p1:background="@color/Black1"
+                    p1:textColor="@color/Blue0"
+                    p1:text="Invert"
+                    p1:textAlignment="0"
+                    p1:layout_gravity="left"
+                    p1:gravity="center_vertical" />
+            </LinearLayout>
             <TextView
                 p1:text="@string/Day"
                 p1:textAppearance="?android:attr/textAppearanceMedium"

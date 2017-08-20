@@ -24,6 +24,7 @@ namespace AppTest1
         private int position_ = InvalideValue;
         private bool startedAppBoot_ = true;
 
+
         public static Global Instance
         {
 
@@ -42,7 +43,7 @@ namespace AppTest1
             Log.Info("info", "Global constructeur");
             if (list == null)
                 list = new List<ListModel>();
-
+           // SaveList();
             LoadList();
             position_ = InvalideValue;
         }
@@ -68,6 +69,7 @@ namespace AppTest1
         public bool IsInvalidPosition { get { return position_ == InvalideValue ? true : false; } }
         public bool BootStart { get { return startedAppBoot_; } set { startedAppBoot_ = value; } }
 
+
         public void SaveList()
         {
             string path = Application.Context.FilesDir.Path;
@@ -76,7 +78,7 @@ namespace AppTest1
             string[] saveList = new string[list.Count];
             for (int i = 0; i < saveList.Length; i++)
             {
-                saveList[i] = list[i].Titre + ":" + list[i].SwitchState + ":" + list[i].MessageText + ":" + list[i].HourStart.Hour +":"+ list[i].HourStart.Minute + ":" + list[i].HourEnd.Hour + ":" + list[i].HourEnd.Minute;
+                saveList[i] = list[i].Titre + ":" + list[i].SwitchState + ":" + list[i].MessageText +":"+ list[i].Invert + ":" + list[i].HourStart.Hour +":"+ list[i].HourStart.Minute + ":" + list[i].HourEnd.Hour + ":" + list[i].HourEnd.Minute;
                 if (list[i].Days != null)
                 {
                     for (int j = 0; j < list[i].Days.Length; j++)
@@ -113,20 +115,20 @@ namespace AppTest1
                 DateTime timeEnd = new DateTime(2017, 01, 01, 0, 0, 0);
                 if (split.Length >= 6)
                 {
-                    timeStart = new DateTime(2017, 01, 01, int.Parse(split[3]), int.Parse(split[4]), 0);
-                    timeEnd = new DateTime(2017, 01, 01, int.Parse(split[5]), int.Parse(split[6]), 0);
+                    timeStart = new DateTime(2017, 01, 01, int.Parse(split[4]), int.Parse(split[5]), 0);
+                    timeEnd = new DateTime(2017, 01, 01, int.Parse(split[6]), int.Parse(split[7]), 0);
                 }
 
-                if (split.Length >= 7)
+                if (split.Length >= 8)
                 {
-                    bool[] boolTab = new bool[7] { bool.Parse(split[7]), bool.Parse(split[8]), bool.Parse(split[9]), bool.Parse(split[10]), bool.Parse(split[11]), bool.Parse(split[12]), bool.Parse(split[13]) };
-                    ListModel model = new ListModel(bool.Parse(split[1]), split[0], split[2], null, timeStart, timeEnd, boolTab);
+                    bool[] boolTab = new bool[7] { bool.Parse(split[8]), bool.Parse(split[9]), bool.Parse(split[10]), bool.Parse(split[11]), bool.Parse(split[12]), bool.Parse(split[13]), bool.Parse(split[14]) };
+                    ListModel model = new ListModel(bool.Parse(split[1]), split[0], split[2], null,  timeStart, timeEnd, boolTab, bool.Parse(split[3]));
                     list.Add(model);
                 }
                 else
                 {
                     bool[] boolTab = new bool[7] { false, false, false, false, false, false, false };
-                    ListModel model = new ListModel(bool.Parse(split[1]), split[0], split[2], null, timeStart, timeEnd,boolTab);
+                    ListModel model = new ListModel(bool.Parse(split[1]), split[0], split[2], null, timeStart, timeEnd,boolTab, bool.Parse(split[3]));
                     list.Add(model);
                 }
             }

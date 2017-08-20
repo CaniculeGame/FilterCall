@@ -109,17 +109,17 @@ namespace AppTest1
 			// aapt resource value: 0x7f06000c
 			public const int AddButton = 2131099660;
 			
-			// aapt resource value: 0x7f060024
-			public const int CancelButton = 2131099684;
+			// aapt resource value: 0x7f060027
+			public const int CancelButton = 2131099687;
 			
 			// aapt resource value: 0x7f060011
 			public const int CommentaireListText = 2131099665;
 			
-			// aapt resource value: 0x7f06001f
-			public const int Contacts = 2131099679;
+			// aapt resource value: 0x7f060022
+			public const int Contacts = 2131099682;
 			
-			// aapt resource value: 0x7f060023
-			public const int DelButton = 2131099683;
+			// aapt resource value: 0x7f060026
+			public const int DelButton = 2131099686;
 			
 			// aapt resource value: 0x7f060006
 			public const int MainListView = 2131099654;
@@ -127,8 +127,8 @@ namespace AppTest1
 			// aapt resource value: 0x7f060012
 			public const int RepetitionText = 2131099666;
 			
-			// aapt resource value: 0x7f060026
-			public const int SaveButton = 2131099686;
+			// aapt resource value: 0x7f060029
+			public const int SaveButton = 2131099689;
 			
 			// aapt resource value: 0x7f060014
 			public const int TitleInstructionText = 2131099668;
@@ -139,26 +139,29 @@ namespace AppTest1
 			// aapt resource value: 0x7f060010
 			public const int TitreListText = 2131099664;
 			
+			// aapt resource value: 0x7f06001d
+			public const int buttonInvertTps = 2131099677;
+			
 			// aapt resource value: 0x7f06000a
 			public const int buttonMenu = 2131099658;
 			
-			// aapt resource value: 0x7f06001b
-			public const int choseDays = 2131099675;
+			// aapt resource value: 0x7f06001e
+			public const int choseDays = 2131099678;
 			
 			// aapt resource value: 0x7f060001
 			public const int contactItemBox = 2131099649;
 			
+			// aapt resource value: 0x7f060024
+			public const int contactListView = 2131099684;
+			
+			// aapt resource value: 0x7f06001f
+			public const int dayButton = 2131099679;
+			
+			// aapt resource value: 0x7f060025
+			public const int deleteLayout = 2131099685;
+			
 			// aapt resource value: 0x7f060021
-			public const int contactListView = 2131099681;
-			
-			// aapt resource value: 0x7f06001c
-			public const int dayButton = 2131099676;
-			
-			// aapt resource value: 0x7f060022
-			public const int deleteLayout = 2131099682;
-			
-			// aapt resource value: 0x7f06001e
-			public const int editTextMessage = 2131099678;
+			public const int editTextMessage = 2131099681;
 			
 			// aapt resource value: 0x7f060019
 			public const int hourEnd = 2131099673;
@@ -184,11 +187,14 @@ namespace AppTest1
 			// aapt resource value: 0x7f060009
 			public const int linearLayout6 = 2131099657;
 			
-			// aapt resource value: 0x7f060025
-			public const int linearLayout7 = 2131099685;
+			// aapt resource value: 0x7f060028
+			public const int linearLayout7 = 2131099688;
 			
-			// aapt resource value: 0x7f060020
-			public const int linearLayoutScroll = 2131099680;
+			// aapt resource value: 0x7f06001c
+			public const int linearLayout8 = 2131099676;
+			
+			// aapt resource value: 0x7f060023
+			public const int linearLayoutScroll = 2131099683;
 			
 			// aapt resource value: 0x7f060016
 			public const int scrollView1 = 2131099670;
@@ -199,8 +205,8 @@ namespace AppTest1
 			// aapt resource value: 0x7f06000f
 			public const int switchStartBoot = 2131099663;
 			
-			// aapt resource value: 0x7f06001d
-			public const int textMessage = 2131099677;
+			// aapt resource value: 0x7f060020
+			public const int textMessage = 2131099680;
 			
 			// aapt resource value: 0x7f060002
 			public const int textNumero = 2131099650;
@@ -210,6 +216,9 @@ namespace AppTest1
 			
 			// aapt resource value: 0x7f06000e
 			public const int textView2 = 2131099662;
+			
+			// aapt resource value: 0x7f06001b
+			public const int textinvertTps = 2131099675;
 			
 			// aapt resource value: 0x7f06001a
 			public const int timePickerEnd = 2131099674;
@@ -309,6 +318,9 @@ namespace AppTest1
 			// aapt resource value: 0x7f050026
 			public const int alerteMessage = 2131034150;
 			
+			// aapt resource value: 0x7f05002c
+			public const int and = 2131034156;
+			
 			// aapt resource value: 0x7f050028
 			public const int appLancee = 2131034152;
 			
@@ -333,11 +345,17 @@ namespace AppTest1
 			// aapt resource value: 0x7f050022
 			public const int facto_day = 2131034146;
 			
+			// aapt resource value: 0x7f05002d
+			public const int from = 2131034157;
+			
 			// aapt resource value: 0x7f05000a
 			public const int hourEnd = 2131034122;
 			
 			// aapt resource value: 0x7f050009
 			public const int hourStart = 2131034121;
+			
+			// aapt resource value: 0x7f05002a
+			public const int invertTps = 2131034154;
 			
 			// aapt resource value: 0x7f050004
 			public const int listeTitre = 2131034116;
@@ -383,6 +401,9 @@ namespace AppTest1
 			
 			// aapt resource value: 0x7f05000f
 			public const int titre = 2131034127;
+			
+			// aapt resource value: 0x7f05002b
+			public const int to = 2131034155;
 			
 			// aapt resource value: 0x7f050024
 			public const int tteJournee = 2131034148;

@@ -59,19 +59,20 @@ namespace AppTest1
             if (item.HourStart.Hour == 0 && item.HourStart.Minute == 0 && item.HourEnd.Hour == 0 && item.HourEnd.Minute == 0)
                 view.FindViewById<TextView>(Resource.Id.CommentaireListText).Text = context.GetString(Resource.String.tteJournee);
             else if (Android.Text.Format.DateFormat.Is24HourFormat(parent.Context))
-                view.FindViewById<TextView>(Resource.Id.CommentaireListText).Text = item.HourStart.Hour + ":" + item.HourStart.Minute + " - " + item.HourEnd.Hour + ":" + item.HourEnd.Minute;
+                view.FindViewById<TextView>(Resource.Id.CommentaireListText).Text = item.HourStart.Hour.ToString("00") + ":" +
+                    item.HourStart.Minute.ToString("00") + " - " + item.HourEnd.Hour.ToString("00") + ":" + item.HourEnd.Minute.ToString("00");
             else
             {
                 string str = "";
                 if (item.HourStart.Hour >= 12)
-                    str = (item.HourStart.Hour - 12) + ":" + item.HourStart.Minute + " PM - ";
+                    str = (item.HourStart.Hour - 12).ToString("00") + ":" + item.HourStart.Minute.ToString("00") + " PM - ";
                 if (item.HourStart.Hour < 12)
-                    str = (item.HourStart.Hour) + ":" + item.HourStart.Minute + " Am - ";
+                    str = (item.HourStart.Hour).ToString("00") + ":" + item.HourStart.Minute.ToString("00") + " Am - ";
 
                 if (item.HourEnd.Hour >= 12)
-                    str += (item.HourEnd.Hour - 12) + ":" + item.HourEnd.Minute + " PM";
+                    str += (item.HourEnd.Hour - 12).ToString("00") + ":" + item.HourEnd.Minute.ToString("00") + " PM";
                 if (item.HourEnd.Hour < 12)
-                    str += (item.HourEnd.Hour) + ":" + item.HourEnd.Minute + " Am";
+                    str += (item.HourEnd.Hour).ToString("00") + ":" + item.HourEnd.Minute.ToString("00") + " Am";
 
                 view.FindViewById<TextView>(Resource.Id.CommentaireListText).Text = str;
             }
