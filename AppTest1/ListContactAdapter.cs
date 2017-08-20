@@ -16,7 +16,7 @@ namespace AppTest1
     {
         private List<ListModelContact> items;
         private Activity context;
-        private int heightItem = 0;
+
 
         public ListContactAdapter(Activity context, List<ListModelContact> items) : base()
         {
@@ -52,7 +52,7 @@ namespace AppTest1
                 view = context.LayoutInflater.Inflate(Resource.Layout.ContactItem, null);
 
             view.FindViewById<TextView>(Resource.Id.textNumero).Text = item.Numero.ToString();
-            view.FindViewById<CheckBox>(Resource.Id.contactItemBox).Checked = item.isSelectionne;
+            view.FindViewById<CheckBox>(Resource.Id.contactItemBox).Checked = item.IsSelectionne;
             view.FindViewById<CheckBox>(Resource.Id.contactItemBox).Text = item.Nom;
 
 

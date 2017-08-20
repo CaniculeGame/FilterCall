@@ -14,9 +14,13 @@ using System.Reflection.Emit;
 
 namespace AppTest1
 {
+
     [Service]
     public class MainService : IntentService
     {
+
+        bool isStarted = false;
+
         public IBinder Binder { get; private set; }
 
         public override void OnCreate()
@@ -56,17 +60,32 @@ namespace AppTest1
 
         protected override void OnHandleIntent(Intent intent)
         {
-            Notification.Builder builder = new Notification.Builder(this)
-            .SetContentTitle("Sample Notification")
-            .SetSmallIcon(Resource.Drawable.Icon)
-            .SetContentText("Hello World! This is my first notification!");
+            if (!isStarted)
+            {
+                const int pendingIntentId = 0;
+                PendingIntent pendingIntent = PendingIntent.GetActivity(this, pendingIntentId, new Intent(this, typeof(MainActivity)), PendingIntentFlags.OneShot);
 
-            Notification notification = builder.Build();
 
-            NotificationManager notificationManager = GetSystemService(Context.NotificationService) as NotificationManager;
+                Notification.Builder builder = new Notification.Builder(this)
+                .SetContentTitle(GetString(Resource.String.ApplicationName))
+                .SetSmallIcon(Resource.Drawable.Icon)
+                .SetContentIntent(pendingIntent)
+                .SetContentText(GetString(Resource.String.appLancee));
 
-            const int notificationId = 0;
-            notificationManager.Notify(notificationId, notification);
+                Notification notification = builder.Build();
+
+                NotificationManager notificationManager = GetSystemService(Context.NotificationService) as NotificationManager;
+
+                const int notificationId = 0;
+                notificationManager.Notify(notificationId, notification);
+                isStarted = true;
+
+                var global = Global.Instance;
+                global.LoadPref(this);
+            }
+
+
+
         }
     }
 }

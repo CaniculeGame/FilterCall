@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Util;
 using System.IO;
 using static Android.Resource;
+using Android.Preferences;
 
 namespace AppTest1
 {
@@ -21,6 +22,7 @@ namespace AppTest1
         private List<ListModel> list = null;
         public static int InvalideValue = -1;
         private int position_ = InvalideValue;
+        private bool startedAppBoot_ = true;
 
         public static Global Instance
         {
@@ -41,13 +43,13 @@ namespace AppTest1
             if (list == null)
                 list = new List<ListModel>();
 
-            Load();
+            LoadList();
             position_ = InvalideValue;
         }
 
-        public List<ListModel> getList { get { return list; }}
-        public ListModel getElement(int posElement) { if (list.Count > posElement && posElement >= 0) return list[posElement]; else return null; }
-        public void setElement(int positionElem, ListModel newElement)
+        public List<ListModel> GetList { get { return list; }}
+        public ListModel GetElement(int posElement) { if (list.Count > posElement && posElement >= 0) return list[posElement]; else return null; }
+        public void SetElement(int positionElem, ListModel newElement)
         {
             if (list != null)
                 if (list.Count > positionElem && positionElem >= 0)
@@ -61,11 +63,12 @@ namespace AppTest1
                     list[positionElem].Days = tab;
         }
 
-        public void Add(ListModel value) { if (list != null) { list.Add(value); } else { list = new List<ListModel>(); list.Add(value); } }
+        public void Add(ListModel value) { if (list != null) { list.Add(value); } else { list = new List<ListModel>();list.Add(value); } }
         public int Position { set { position_ = value; }  get { return position_; } }
-        public bool isInvalidPosition { get { return position_ == InvalideValue ? true : false; } }
+        public bool IsInvalidPosition { get { return position_ == InvalideValue ? true : false; } }
+        public bool BootStart { get { return startedAppBoot_; } set { startedAppBoot_ = value; } }
 
-        public void Save()
+        public void SaveList()
         {
             string path = Application.Context.FilesDir.Path;
             var filePath = Path.Combine(path, "list.txt");
@@ -89,11 +92,10 @@ namespace AppTest1
 
             System.IO.File.WriteAllLines(filePath, saveList);
             Log.Info("save", "Save complete  " + saveList[0]);
-
         }
 
 
-        public void Load()
+        public void LoadList()
         {
             string path = Application.Context.FilesDir.Path;
             var filePath = Path.Combine(path, "list.txt");
@@ -128,9 +130,22 @@ namespace AppTest1
                     list.Add(model);
                 }
             }
+
         }
 
+        public void LoadPref(Context mContext)
+        {
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(mContext);
+            startedAppBoot_ = prefs.GetBoolean("bootStart", true);
+        }
 
+        public void SavePref(Context mContext)
+        {
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(mContext);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutBoolean("bootStart", startedAppBoot_);
+            editor.Apply();
+        }
 
     }
 }

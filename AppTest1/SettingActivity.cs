@@ -50,17 +50,17 @@ namespace AppTest1
             choseDate = FindViewById<Button>(Resource.Id.dayButton);
             if (choseDate != null)
             {
-                if (Global.Instance.isInvalidPosition)
+                if (Global.Instance.IsInvalidPosition)
                     choseDate.Text = GetString(Resource.String.once);
                 else
                 {
-                    tabBool = Global.Instance.getElement(Global.Instance.Position).Days;
+                    tabBool = Global.Instance.GetElement(Global.Instance.Position).Days;
                     ChooseDateString(tabBool);
                 }
 
                 choseDate.Click += delegate
                 {
-                    choseDialog();
+                    ChoseDialog();
                 };
             }
 
@@ -179,14 +179,14 @@ namespace AppTest1
 
             if (Global.Instance.Position != Global.InvalideValue)
             {
-                if (Global.Instance.getList.Count > Global.Instance.Position && Global.Instance.Position >= 0)
+                if (Global.Instance.GetList.Count > Global.Instance.Position && Global.Instance.Position >= 0)
                 {
-                    titre.Text = Global.Instance.getElement(Global.Instance.Position).Titre;
-                    hourEnd.Hour = Global.Instance.getElement(Global.Instance.Position).HourEnd.Hour;
-                    hourEnd.Minute = Global.Instance.getElement(Global.Instance.Position).HourEnd.Minute;
-                    hourStart.Hour = Global.Instance.getElement(Global.Instance.Position).HourStart.Hour;
-                    hourStart.Minute = Global.Instance.getElement(Global.Instance.Position).HourStart.Minute;
-                    message.Text = Global.Instance.getElement(Global.Instance.Position).MessageText;
+                    titre.Text = Global.Instance.GetElement(Global.Instance.Position).Titre;
+                    hourEnd.Hour = Global.Instance.GetElement(Global.Instance.Position).HourEnd.Hour;
+                    hourEnd.Minute = Global.Instance.GetElement(Global.Instance.Position).HourEnd.Minute;
+                    hourStart.Hour = Global.Instance.GetElement(Global.Instance.Position).HourStart.Hour;
+                    hourStart.Minute = Global.Instance.GetElement(Global.Instance.Position).HourStart.Minute;
+                    message.Text = Global.Instance.GetElement(Global.Instance.Position).MessageText;
                 }
                 else
                 {
@@ -213,7 +213,7 @@ namespace AppTest1
             
         }
 
-        private void choseDialog()
+        private void ChoseDialog()
         {
 
             FragmentTransaction ft = FragmentManager.BeginTransaction();
@@ -251,19 +251,19 @@ namespace AppTest1
             else
                 newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, new bool[] { false, false, false, false, false, false, false });
 
-            if (Global.Instance.isInvalidPosition)
+            if (Global.Instance.IsInvalidPosition)
                 Global.Instance.Add(newItem);
             else
-                Global.Instance.setElement(Global.Instance.Position, newItem);
+                Global.Instance.SetElement(Global.Instance.Position, newItem);
 
-            Global.Instance.Save();
+            Global.Instance.SaveList();
             return true;
         }
 
         private void Delete()
         {
             if (Global.Instance.Position != Global.InvalideValue && Global.Instance.Position >= 0)
-                Global.Instance.getList.RemoveAt(Global.Instance.Position);
+                Global.Instance.GetList.RemoveAt(Global.Instance.Position);
         }
 
 

@@ -83,7 +83,7 @@ namespace AppTest1
             sw.Click += delegate 
             {
                 item.SwitchState = !item.SwitchState;
-                Global.Instance.Save();
+                Global.Instance.SaveList();
             };
 
 

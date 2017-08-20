@@ -13,8 +13,10 @@ namespace AppTest1
     public class MainActivity : Activity
     {
 
-        Button addButton = null;
+        Button addButton  = null;
+        Button menuButton = null;
         ListView mainListView = null;
+
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -22,9 +24,7 @@ namespace AppTest1
 
             RequestWindowFeature(Android.Views.WindowFeatures.NoTitle);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-            // SetContentView (Resource.Layout.Main);
 
             Global global = Global.Instance;
 
@@ -38,30 +38,47 @@ namespace AppTest1
             }
 
 
+            menuButton = FindViewById<Button>(Resource.Id.buttonMenu);
+            if (menuButton != null)
+            {
+                menuButton.Click += delegate
+                {
+                    OnButtonMenuClicked();
+                };
+            }
+
+
+
             mainListView = FindViewById<ListView>(Resource.Id.MainListView);
             if (mainListView != null)
             {
-                mainListView.Adapter = new ListAdapter(this, Global.Instance.getList);
+                mainListView.Adapter = new ListAdapter(this, Global.Instance.GetList);
                 mainListView.ItemClick += OnListItemClick;
             }
 
 
-           // Intent myIntent = new Intent(this, typeof(MainService));
-           // StartService(myIntent);
+            Intent myIntent = new Intent(this, typeof(MainService));
+            StartService(myIntent);
         }
 
 
-        void OnListItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private void OnListItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             Global.Instance.Position = e.Position;
             StartActivity(typeof(SettingActivity));
         }
 
-        void OnButtonClicked()
+        private void OnButtonClicked()
         {
             Global.Instance.Position = Global.InvalideValue;
             StartActivity(typeof(SettingActivity));
             Finish();
+        }
+
+        private void OnButtonMenuClicked()
+        {
+            Global.Instance.Position = Global.InvalideValue;
+            StartActivity(typeof(Menu));
         }
     }
 }

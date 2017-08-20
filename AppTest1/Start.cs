@@ -20,15 +20,15 @@ namespace AppTest1
     {
         public override void OnReceive(Context context, Intent intent)
         {
-            //Log.Info("info", "blou bloup bloup");
 
             if (intent.Action == Intent.ActionBootCompleted)
             {
-                Intent myIntent = new Intent(context, typeof(MainService));
-                context.StartService(myIntent);
-
-                //Intent myIntent = new Intent(context, typeof(MainActivity));
-                //context.StartActivity(myIntent);     
+                Global.Instance.LoadPref(context);
+                if (Global.Instance.BootStart)
+                {
+                    Intent myIntent = new Intent(context, typeof(MainService));
+                    context.StartService(myIntent);
+                }
             }
         }
 

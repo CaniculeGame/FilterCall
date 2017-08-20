@@ -8,6 +8,7 @@
   <string name="save">Save </string>
   <string name="cancel">Cancel</string>
   <string name="del">Delete</string>
+  <string name="menu">Setting</string>
 
   <string name="hourStart">Set Start Hour</string>
   <string name="hourEnd">Set End Hour</string>
@@ -27,7 +28,7 @@
   <string name="Samedi">Saturday</string>
   <string name="Dimanche">Sunday</string>
   <string name="valider">valid</string>
-  
+
   <string name="short_Lundi">Mon</string>
   <string name="short_Mardi">Tue</string>
   <string name="short_Mercredi">Wed</string>
@@ -38,10 +39,12 @@
   <string name="every_day">Every day</string>
   <string name="facto_day">Weekdays</string>
   <string name="once">Only once</string>
-  
+
   <string name="tteJournee">All Day</string>
   <string name="alerte">Alert</string>
   <string name="alerteMessage">Hour End is greater than Start !!</string>
   <string name="ok">Ok</string>
+  <string name="appLancee">App is running. Black List are enable</string>
+  <string name="bootStart">Boot start app </string>
   
 </resources>

@@ -88,7 +88,10 @@ namespace AppTest1
 			public const int Icon = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int save = 2130837509;
+			public const int menu = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int save = 2130837510;
 			
 			static Drawable()
 			{
@@ -103,62 +106,65 @@ namespace AppTest1
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060009
-			public const int AddButton = 2131099657;
+			// aapt resource value: 0x7f06000c
+			public const int AddButton = 2131099660;
+			
+			// aapt resource value: 0x7f060024
+			public const int CancelButton = 2131099684;
+			
+			// aapt resource value: 0x7f060011
+			public const int CommentaireListText = 2131099665;
 			
 			// aapt resource value: 0x7f06001f
-			public const int CancelButton = 2131099679;
+			public const int Contacts = 2131099679;
 			
-			// aapt resource value: 0x7f06000b
-			public const int CommentaireListText = 2131099659;
+			// aapt resource value: 0x7f060023
+			public const int DelButton = 2131099683;
 			
-			// aapt resource value: 0x7f060019
-			public const int Contacts = 2131099673;
+			// aapt resource value: 0x7f060006
+			public const int MainListView = 2131099654;
 			
-			// aapt resource value: 0x7f06001d
-			public const int DelButton = 2131099677;
+			// aapt resource value: 0x7f060012
+			public const int RepetitionText = 2131099666;
 			
-			// aapt resource value: 0x7f060005
-			public const int MainListView = 2131099653;
+			// aapt resource value: 0x7f060026
+			public const int SaveButton = 2131099686;
 			
-			// aapt resource value: 0x7f06000c
-			public const int RepetitionText = 2131099660;
-			
-			// aapt resource value: 0x7f060021
-			public const int SaveButton = 2131099681;
-			
-			// aapt resource value: 0x7f06000e
-			public const int TitleInstructionText = 2131099662;
-			
-			// aapt resource value: 0x7f06000f
-			public const int TitleTextEdit = 2131099663;
-			
-			// aapt resource value: 0x7f06000a
-			public const int TitreListText = 2131099658;
+			// aapt resource value: 0x7f060014
+			public const int TitleInstructionText = 2131099668;
 			
 			// aapt resource value: 0x7f060015
-			public const int choseDays = 2131099669;
+			public const int TitleTextEdit = 2131099669;
+			
+			// aapt resource value: 0x7f060010
+			public const int TitreListText = 2131099664;
+			
+			// aapt resource value: 0x7f06000a
+			public const int buttonMenu = 2131099658;
+			
+			// aapt resource value: 0x7f06001b
+			public const int choseDays = 2131099675;
 			
 			// aapt resource value: 0x7f060001
 			public const int contactItemBox = 2131099649;
 			
-			// aapt resource value: 0x7f06001b
-			public const int contactListView = 2131099675;
-			
-			// aapt resource value: 0x7f060016
-			public const int dayButton = 2131099670;
+			// aapt resource value: 0x7f060021
+			public const int contactListView = 2131099681;
 			
 			// aapt resource value: 0x7f06001c
-			public const int deleteLayout = 2131099676;
+			public const int dayButton = 2131099676;
 			
-			// aapt resource value: 0x7f060018
-			public const int editTextMessage = 2131099672;
+			// aapt resource value: 0x7f060022
+			public const int deleteLayout = 2131099682;
 			
-			// aapt resource value: 0x7f060013
-			public const int hourEnd = 2131099667;
+			// aapt resource value: 0x7f06001e
+			public const int editTextMessage = 2131099678;
 			
-			// aapt resource value: 0x7f060011
-			public const int hourStart = 2131099665;
+			// aapt resource value: 0x7f060019
+			public const int hourEnd = 2131099673;
+			
+			// aapt resource value: 0x7f060017
+			public const int hourStart = 2131099671;
 			
 			// aapt resource value: 0x7f060000
 			public const int linearLayout1 = 2131099648;
@@ -166,44 +172,56 @@ namespace AppTest1
 			// aapt resource value: 0x7f060003
 			public const int linearLayout2 = 2131099651;
 			
-			// aapt resource value: 0x7f060006
-			public const int linearLayout3 = 2131099654;
+			// aapt resource value: 0x7f060007
+			public const int linearLayout3 = 2131099655;
 			
-			// aapt resource value: 0x7f060008
-			public const int linearLayout4 = 2131099656;
+			// aapt resource value: 0x7f06000b
+			public const int linearLayout4 = 2131099659;
 			
-			// aapt resource value: 0x7f06001e
-			public const int linearLayout6 = 2131099678;
+			// aapt resource value: 0x7f060004
+			public const int linearLayout5 = 2131099652;
+			
+			// aapt resource value: 0x7f060009
+			public const int linearLayout6 = 2131099657;
+			
+			// aapt resource value: 0x7f060025
+			public const int linearLayout7 = 2131099685;
 			
 			// aapt resource value: 0x7f060020
-			public const int linearLayout7 = 2131099680;
+			public const int linearLayoutScroll = 2131099680;
 			
-			// aapt resource value: 0x7f06001a
-			public const int linearLayoutScroll = 2131099674;
+			// aapt resource value: 0x7f060016
+			public const int scrollView1 = 2131099670;
 			
-			// aapt resource value: 0x7f060010
-			public const int scrollView1 = 2131099664;
+			// aapt resource value: 0x7f060013
+			public const int switchOnOff = 2131099667;
 			
-			// aapt resource value: 0x7f06000d
-			public const int switchOnOff = 2131099661;
+			// aapt resource value: 0x7f06000f
+			public const int switchStartBoot = 2131099663;
 			
-			// aapt resource value: 0x7f060017
-			public const int textMessage = 2131099671;
+			// aapt resource value: 0x7f06001d
+			public const int textMessage = 2131099677;
 			
 			// aapt resource value: 0x7f060002
 			public const int textNumero = 2131099650;
 			
-			// aapt resource value: 0x7f060014
-			public const int timePickerEnd = 2131099668;
+			// aapt resource value: 0x7f06000d
+			public const int textView1 = 2131099661;
 			
-			// aapt resource value: 0x7f060012
-			public const int timePickerStart = 2131099666;
+			// aapt resource value: 0x7f06000e
+			public const int textView2 = 2131099662;
 			
-			// aapt resource value: 0x7f060004
-			public const int titreMain = 2131099652;
+			// aapt resource value: 0x7f06001a
+			public const int timePickerEnd = 2131099674;
 			
-			// aapt resource value: 0x7f060007
-			public const int toolbar1 = 2131099655;
+			// aapt resource value: 0x7f060018
+			public const int timePickerStart = 2131099672;
+			
+			// aapt resource value: 0x7f060005
+			public const int titreMain = 2131099653;
+			
+			// aapt resource value: 0x7f060008
+			public const int toolbar1 = 2131099656;
 			
 			static Id()
 			{
@@ -225,10 +243,13 @@ namespace AppTest1
 			public const int Main = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int RowModel = 2130903042;
+			public const int Menu = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int SettingPage = 2130903043;
+			public const int RowModel = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int SettingPage = 2130903044;
 			
 			static Layout()
 			{
@@ -246,119 +267,128 @@ namespace AppTest1
 			// aapt resource value: 0x7f050001
 			public const int ApplicationName = 2131034113;
 			
-			// aapt resource value: 0x7f05000a
-			public const int Day = 2131034122;
+			// aapt resource value: 0x7f05000b
+			public const int Day = 2131034123;
 			
-			// aapt resource value: 0x7f05000c
-			public const int Days = 2131034124;
+			// aapt resource value: 0x7f05000d
+			public const int Days = 2131034125;
 			
-			// aapt resource value: 0x7f050017
-			public const int Dimanche = 2131034135;
+			// aapt resource value: 0x7f050018
+			public const int Dimanche = 2131034136;
 			
 			// aapt resource value: 0x7f050000
 			public const int Hello = 2131034112;
 			
-			// aapt resource value: 0x7f050014
-			public const int Jeudi = 2131034132;
-			
-			// aapt resource value: 0x7f050011
-			public const int Lundi = 2131034129;
+			// aapt resource value: 0x7f050015
+			public const int Jeudi = 2131034133;
 			
 			// aapt resource value: 0x7f050012
-			public const int Mardi = 2131034130;
+			public const int Lundi = 2131034130;
 			
 			// aapt resource value: 0x7f050013
-			public const int Mercredi = 2131034131;
+			public const int Mardi = 2131034131;
 			
-			// aapt resource value: 0x7f05000b
-			public const int Message = 2131034123;
+			// aapt resource value: 0x7f050014
+			public const int Mercredi = 2131034132;
+			
+			// aapt resource value: 0x7f05000c
+			public const int Message = 2131034124;
+			
+			// aapt resource value: 0x7f050017
+			public const int Samedi = 2131034135;
 			
 			// aapt resource value: 0x7f050016
-			public const int Samedi = 2131034134;
-			
-			// aapt resource value: 0x7f050015
-			public const int Vendredi = 2131034133;
+			public const int Vendredi = 2131034134;
 			
 			// aapt resource value: 0x7f050002
 			public const int addMain = 2131034114;
 			
-			// aapt resource value: 0x7f050024
-			public const int alerte = 2131034148;
-			
 			// aapt resource value: 0x7f050025
-			public const int alerteMessage = 2131034149;
+			public const int alerte = 2131034149;
+			
+			// aapt resource value: 0x7f050026
+			public const int alerteMessage = 2131034150;
+			
+			// aapt resource value: 0x7f050028
+			public const int appLancee = 2131034152;
+			
+			// aapt resource value: 0x7f050029
+			public const int bootStart = 2131034153;
 			
 			// aapt resource value: 0x7f050006
 			public const int cancel = 2131034118;
 			
-			// aapt resource value: 0x7f05000d
-			public const int choseBlackList = 2131034125;
+			// aapt resource value: 0x7f05000e
+			public const int choseBlackList = 2131034126;
 			
 			// aapt resource value: 0x7f050007
 			public const int del = 2131034119;
 			
-			// aapt resource value: 0x7f050010
-			public const int dialogTitle = 2131034128;
-			
-			// aapt resource value: 0x7f050020
-			public const int every_day = 2131034144;
+			// aapt resource value: 0x7f050011
+			public const int dialogTitle = 2131034129;
 			
 			// aapt resource value: 0x7f050021
-			public const int facto_day = 2131034145;
+			public const int every_day = 2131034145;
+			
+			// aapt resource value: 0x7f050022
+			public const int facto_day = 2131034146;
+			
+			// aapt resource value: 0x7f05000a
+			public const int hourEnd = 2131034122;
 			
 			// aapt resource value: 0x7f050009
-			public const int hourEnd = 2131034121;
-			
-			// aapt resource value: 0x7f050008
-			public const int hourStart = 2131034120;
+			public const int hourStart = 2131034121;
 			
 			// aapt resource value: 0x7f050004
 			public const int listeTitre = 2131034116;
 			
-			// aapt resource value: 0x7f050026
-			public const int ok = 2131034150;
+			// aapt resource value: 0x7f050008
+			public const int menu = 2131034120;
 			
-			// aapt resource value: 0x7f050022
-			public const int once = 2131034146;
+			// aapt resource value: 0x7f050027
+			public const int ok = 2131034151;
+			
+			// aapt resource value: 0x7f050023
+			public const int once = 2131034147;
 			
 			// aapt resource value: 0x7f050003
 			public const int plus = 2131034115;
 			
-			// aapt resource value: 0x7f05000f
-			public const int putMessage = 2131034127;
+			// aapt resource value: 0x7f050010
+			public const int putMessage = 2131034128;
 			
 			// aapt resource value: 0x7f050005
 			public const int save = 2131034117;
 			
-			// aapt resource value: 0x7f05001f
-			public const int short_Dimanche = 2131034143;
-			
-			// aapt resource value: 0x7f05001c
-			public const int short_Jeudi = 2131034140;
-			
-			// aapt resource value: 0x7f050019
-			public const int short_Lundi = 2131034137;
-			
-			// aapt resource value: 0x7f05001a
-			public const int short_Mardi = 2131034138;
-			
-			// aapt resource value: 0x7f05001b
-			public const int short_Mercredi = 2131034139;
-			
-			// aapt resource value: 0x7f05001e
-			public const int short_Samedi = 2131034142;
+			// aapt resource value: 0x7f050020
+			public const int short_Dimanche = 2131034144;
 			
 			// aapt resource value: 0x7f05001d
-			public const int short_Vendredi = 2131034141;
+			public const int short_Jeudi = 2131034141;
 			
-			// aapt resource value: 0x7f05000e
-			public const int titre = 2131034126;
+			// aapt resource value: 0x7f05001a
+			public const int short_Lundi = 2131034138;
 			
-			// aapt resource value: 0x7f050023
-			public const int tteJournee = 2131034147;
+			// aapt resource value: 0x7f05001b
+			public const int short_Mardi = 2131034139;
 			
-			// aapt resource value: 0x7f050018
-			public const int valider = 2131034136;
+			// aapt resource value: 0x7f05001c
+			public const int short_Mercredi = 2131034140;
+			
+			// aapt resource value: 0x7f05001f
+			public const int short_Samedi = 2131034143;
+			
+			// aapt resource value: 0x7f05001e
+			public const int short_Vendredi = 2131034142;
+			
+			// aapt resource value: 0x7f05000f
+			public const int titre = 2131034127;
+			
+			// aapt resource value: 0x7f050024
+			public const int tteJournee = 2131034148;
+			
+			// aapt resource value: 0x7f050019
+			public const int valider = 2131034137;
 			
 			static String()
 			{
