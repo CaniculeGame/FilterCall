@@ -105,6 +105,8 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainService.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="PhoneReceiver.cs" />
+    <Compile Include="PhoneServices.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingActivity.cs" />
