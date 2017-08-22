@@ -21,6 +21,7 @@ namespace AppTest1
     [Android.App.IntentFilter(new[] { SMS_RECEIVER })]
     class PhoneReceiver : BroadcastReceiver
     {
+
         private const string SMS_RECEIVER = "android.provider.Telephony.SMS_RECEIVED";
         private static int MAX_SMS_MESSAGE_LENGTH = 160;
         private bool desactiveSon = true; //permet de savoir si le tel est en silencieux, s'il est en silencieux, il ne faut pas  le remettre en normal
@@ -32,8 +33,8 @@ namespace AppTest1
                 SmsMessage[] msgs = Telephony.Sms.Intents.GetMessagesFromIntent(intent);
                 Log.Info("info", "number = " + msgs[0].OriginatingAddress);
                 desactiveSon = true;
-
-                if (true) //TODO : chercher si dans liste noire
+                short idList = 0;
+                if (Global.Instance.SearchPhoneNumber(msgs[0].OriginatingAddress, out idList))
                 {
                     AudioManager aM = (AudioManager)context.GetSystemService(Context.AudioService);
                     if (aM.RingerMode != RingerMode.Silent)
@@ -54,7 +55,7 @@ namespace AppTest1
                     }
 
 
-                    Sleep(aM,context);
+                    Sleep(aM, context);
                 }
 
             }

@@ -78,6 +78,7 @@ namespace AppTest1
             string[] saveList = new string[list.Count];
             for (int i = 0; i < saveList.Length; i++)
             {
+                list[i].ContactsList.Sort(); // tri contact nom :( => doit plutot trie les numero
                 saveList[i] = list[i].Titre + ":" + list[i].SwitchState + ":" + list[i].MessageText +":"+ list[i].Invert + ":" + list[i].HourStart.Hour +":"+ list[i].HourStart.Minute + ":" + list[i].HourEnd.Hour + ":" + list[i].HourEnd.Minute;
                 if (list[i].Days != null)
                 {
@@ -148,6 +149,53 @@ namespace AppTest1
             editor.PutBoolean("bootStart", startedAppBoot_);
             editor.Apply();
         }
+
+
+
+        public bool SearchPhoneNumber(string number, out short idlst)
+        {
+            bool trouver = false;
+            idlst = 0;
+            foreach (var lst in Global.Instance.GetList)
+            {
+                int debut = 0;
+                int fin = lst.ContactsList.Count - 1;
+                int mil = fin / 2;
+                while (!trouver && fin > debut)
+                {
+                    //Log.Info("boucle", lst.ContactsList[mil] +"  "+ lst.ContactsList[mil].CompareTo(number));
+                    int res = lst.ContactsList[mil].CompareTo(number);
+                    if (res == 0)
+                    {
+                        trouver = true;
+                    }
+                    else if (res < 0)
+                    {
+                        debut = mil + 1;
+                    }
+                    else
+                    {
+                        fin = mil - 1;
+                    }
+                    mil = (fin + debut) / 2;
+                    //Log.Info("boucle", "max = " + fin + "  min = " + debut);
+                }
+
+                if (fin == debut)
+                {
+                    if (lst.ContactsList[fin].CompareTo(number) == 0)
+                        trouver = true;
+                }
+                //Log.Info("boucle", trouver.ToString());
+                if (trouver)
+                    continue;
+                else
+                    idlst++;
+            }
+
+            return trouver;
+        }
+
 
     }
 }
