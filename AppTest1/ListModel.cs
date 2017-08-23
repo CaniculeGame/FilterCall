@@ -28,7 +28,6 @@ namespace AppTest1
         {
         }
 
-        //private string daysStr_ = "";
 
         public ListModel(bool state, string titre, string message, List<string> contacts, DateTime start, DateTime end, bool[] days, bool invert)
         {

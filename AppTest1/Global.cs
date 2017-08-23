@@ -158,6 +158,9 @@ namespace AppTest1
             idlst = 0;
             foreach (var lst in Global.Instance.GetList)
             {
+                if (lst.ContactsList == null)
+                    return false;
+
                 int debut = 0;
                 int fin = lst.ContactsList.Count - 1;
                 int mil = fin / 2;
