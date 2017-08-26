@@ -13,6 +13,7 @@ using Android.Util;
 using Android.Provider;
 using Android.Database;
 using Android.Text.Format;
+using Android.Telephony;
 
 namespace AppTest1
 {
@@ -125,7 +126,7 @@ namespace AppTest1
 
                 var uri = ContactsContract.Contacts.ContentUri;
                 string[] projection = {
-                    ContactsContract.Contacts.InterfaceConsts.Id,
+                    ContactsContract.Contacts.InterfaceConsts.NameRawContactId,
                     ContactsContract.Contacts.InterfaceConsts.DisplayName,
                     ContactsContract.Contacts.InterfaceConsts.HasPhoneNumber
                 };
@@ -133,40 +134,54 @@ namespace AppTest1
                 var loader = new CursorLoader(this, uri, projection, null, null, null);
                 var cursor = (ICursor)loader.LoadInBackground();
 
+
+                //recherche du numero associé au nom du contact
+                uri = ContactsContract.CommonDataKinds.Phone.ContentUri;
+                string[] projectionNumber = { ContactsContract.Contacts.InterfaceConsts.NameRawContactId, ContactsContract.CommonDataKinds.Phone.Number };
+                var loaderNumber = new CursorLoader(this, uri, projectionNumber, null, null, null);
+                var cursorNumber = (ICursor)loaderNumber.LoadInBackground();
+
                 if (cursor.MoveToFirst())
                 {
-                    do
+                    string num = "0";
+                    do //pour chaque contact ...
                     {
-                        string num = "0";
-                        //recherche du numero associé au nom du contact
-                        /*   if (int.Parse(cursor.GetString(cursor.GetColumnIndex(projection[2]))) > 0)
-                           {
-                               var uriPhoneNumber = ContactsContract.CommonDataKinds.Phone.ContentUri;
-                               string[] projectionPhoneNumber = { ContactsContract.Contacts.InterfaceConsts.Id, ContactsContract.CommonDataKinds.Phone.Number };
-                               var phoneLoader = new CursorLoader(this,uriPhoneNumber, projectionPhoneNumber, null, null, null);
-                               var cursorPhone = (ICursor)phoneLoader.LoadInBackground();
+                        //Log.Info("number", "recherche pour : " + cursor.GetString(cursor.GetColumnIndex(projection[1])) + "  " + cursor.GetString(cursor.GetColumnIndex(projection[0])));
+                        num = "0";
+                        if (cursorNumber.MoveToFirst()) //...on cherche le num asocié
+                        {
+                            do
+                            {
+                                //Log.Info("number", "numero ass : " + cursorNumber.GetString(cursorNumber.GetColumnIndex(projectionNumber[1])) +"  " + cursorNumber.GetString(cursorNumber.GetColumnIndex(projectionNumber[0])));
+                                if (cursorNumber.GetString(cursorNumber.GetColumnIndex(projectionNumber[0])) == cursor.GetString(cursor.GetColumnIndex(projection[0])))
+                                {
+                                    num = cursorNumber.GetString(cursorNumber.GetColumnIndex(projectionNumber[1]));
+                                    cursorNumber.MoveToLast();
+                                }
+                            }
+                            while (cursorNumber.MoveToNext());
+                        }
 
-
-                             //verifie si on peux le selectionner ou pas
-
-                             //  num = cursorPhone.GetString(cursorPhone.GetColumnIndex(projectionPhoneNumber[1]));
-
-                           }*/
-
-
-                        ListModelContact ct = new ListModelContact(cursor.GetString(cursor.GetColumnIndex(projection[1])),
+                        if (num != "0")
+                        {
+                            ListModelContact ct = new ListModelContact(cursor.GetString(cursor.GetColumnIndex(projection[1])),
                             num,
                             cursor.GetInt(cursor.GetColumnIndex(projection[0])));
+                            contactList.Add(ct);
+                        }
 
-                        contactList.Add(ct);
-
-
-
-                    } while (cursor.MoveToNext());
+                    } while (cursor.MoveToNext());//on passe a un autre contact
                 }
 
 
-                Log.Info("info", contactList.Count.ToString());
+                foreach (var v in contactList)
+                {
+                   foreach(var ct in Global.Instance.GetElement(Global.Instance.Position).ContactsList)
+                    {
+                        if( v.Numero.Equals(ct))
+                            v.SetSelectionne = true;
+                    }
+                }
 
                 contactListView.Adapter = new ListContactAdapter(this, contactList);
                 FindViewById<LinearLayout>(Resource.Id.linearLayoutScroll).LayoutParameters.Height = 110 * contactList.Count;
@@ -323,7 +338,7 @@ namespace AppTest1
 
             //creation liste de contact
             List<string> contactNum = new List<string>();
-            for(int i = 0; i < contactList.Count;i++)
+            for (int i = 0; i < contactList.Count; i++)
             {
                 if (contactList[i].IsSelectionne)
                 {

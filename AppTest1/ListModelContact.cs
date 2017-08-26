@@ -30,7 +30,7 @@ namespace AppTest1
 
         public string Nom { get { return nom_; } set { nom_ = value; } }
         public string Numero { get { return numero_; } set { numero_ = value; } }
-        public bool SetSelectionne { set { selectionne_ = value; } }
+        public bool SetSelectionne { set { selectionne_ = value;} }
         public bool IsSelectionne { get { return selectionne_ == true ? true : false; } }
 
     }
