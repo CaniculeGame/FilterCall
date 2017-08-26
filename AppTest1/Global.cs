@@ -154,12 +154,54 @@ namespace AppTest1
 
         public bool SearchPhoneNumber(string number, out short idlst)
         {
-            bool trouver = false;
+            bool trouver = true;
             idlst = 0;
             foreach (var lst in Global.Instance.GetList)
             {
+                bool continuerTraitement;
+
+
                 if (lst.ContactsList == null)
                     return false;
+
+                if (lst.SwitchState == false)
+                    continue;
+
+                if (lst.Days[(int)DateTime.Now.DayOfWeek] == false)
+                    continue;
+
+                if (lst.Invert)
+                {
+                    continuerTraitement = false; // init de la valeur car la on vas chercher a savoir si on est dans les bornes
+
+                    //on a inversé les plages horraies, on ne veux pas avoir les appel dans la tranche designée
+                    //on test si on est dans la tranche horraire
+                    if ( lst.HourStart.Hour >= DateTime.Now.Hour && lst.HourEnd.Hour <= DateTime.Now.Hour)
+                    {
+                        if(lst.HourStart.Hour == DateTime.Now.Hour)
+                            if(lst.HourStart.Minute >= DateTime.Now.Minute)
+                                continuerTraitement = true;
+
+                        if (lst.HourEnd.Hour == DateTime.Now.Hour)
+                            if (lst.HourEnd.Minute <= DateTime.Now.Minute)
+                                continuerTraitement = true;
+                    }
+                }
+                else
+                {
+                    continuerTraitement = true; // init de la valeur cxar la on vas chercher a savoir si on est pas dans les bornes
+
+                    //on test si on est dans la tranche horraire
+                    if (lst.HourStart.Hour < DateTime.Now.Hour || lst.HourEnd.Hour > DateTime.Now.Hour)
+                        continuerTraitement = false;
+                    // on test si quand on est a la mm heure on a les bonnes minutes
+                    else if ((lst.HourStart.Hour == DateTime.Now.Hour && lst.HourStart.Minute < DateTime.Now.Minute) &&
+                        (lst.HourEnd.Hour == DateTime.Now.Hour && lst.HourEnd.Minute < DateTime.Now.Minute) )
+                        continuerTraitement = false;
+                }
+
+                if (!continuerTraitement)
+                    continue;
 
                 int debut = 0;
                 int fin = lst.ContactsList.Count - 1;

@@ -49,7 +49,6 @@ namespace AppTest1
                         JNIEnv.CallBooleanMethod(telephony, iTelephonyEndCall);
                         JNIEnv.DeleteLocalRef(telephony);
                         JNIEnv.DeleteLocalRef(iTelephonyClass);
-
                     }
                 }
             }
