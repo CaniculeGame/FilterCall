@@ -42,6 +42,11 @@ namespace AppTest1
             get { return items.Count; }
         }
 
+        public bool IsChecked(int position)
+        {
+           return items[position].IsSelectionne;
+        }
+
 
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -55,6 +60,11 @@ namespace AppTest1
             view.FindViewById<CheckBox>(Resource.Id.contactItemBox).Checked = item.IsSelectionne;
             view.FindViewById<CheckBox>(Resource.Id.contactItemBox).Text = item.Nom;
 
+
+            view.FindViewById<CheckBox>(Resource.Id.contactItemBox).CheckedChange += delegate
+            {
+                item.SetSelectionne = !item.IsSelectionne;
+            };
 
             return view;
         }

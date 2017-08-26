@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Util;
 
 namespace AppTest1
 {
@@ -39,6 +40,17 @@ namespace AppTest1
             hourEnd_ = end;
             days_ = days;
             invert_ = invert;
+
+         /*   if(contacts != null)
+            foreach (var v in contacts)
+                Log.Info("lstModel", v);
+
+            Log.Info("lstModel", "-----------------------------------");
+
+            if (contacts_ != null)
+                foreach (var v in contacts_)
+                Log.Info("lstModel", v);*/
+
         }
 
 

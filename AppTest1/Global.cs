@@ -78,7 +78,9 @@ namespace AppTest1
             string[] saveList = new string[list.Count];
             for (int i = 0; i < saveList.Length; i++)
             {
-                list[i].ContactsList.Sort(); // tri contact nom :( => doit plutot trie les numero
+                if(list[i].ContactsList != null)
+                    list[i].ContactsList.Sort(); 
+
                 saveList[i] = list[i].Titre + ":" + list[i].SwitchState + ":" + list[i].MessageText +":"+ list[i].Invert + ":" + list[i].HourStart.Hour +":"+ list[i].HourStart.Minute + ":" + list[i].HourEnd.Hour + ":" + list[i].HourEnd.Minute;
                 if (list[i].Days != null)
                 {
@@ -91,6 +93,10 @@ namespace AppTest1
                     for (int j = 0; j < 7; j++)
                         saveList[i] = saveList[i] + ":false";
                 }
+
+                if(list[i].ContactsList != null)
+                    foreach(string v in list[i].ContactsList)
+                        saveList[i] = saveList[i] + ":"+v;
             }
 
             System.IO.File.WriteAllLines(filePath, saveList);
@@ -104,7 +110,7 @@ namespace AppTest1
             var filePath = Path.Combine(path, "list.txt");
 
             var text = File.ReadAllLines(filePath);
-            foreach (var ligne in text)
+            foreach (var ligne in text) // pour chaque liste enregistrée faire...
             {
                 if (list == null)
                     list = new List<ListModel>();
@@ -114,24 +120,35 @@ namespace AppTest1
 
                 DateTime timeStart = new DateTime(2017, 01, 01, 0, 0, 0);
                 DateTime timeEnd = new DateTime(2017, 01, 01, 0, 0, 0);
-                if (split.Length >= 6)
+                if (split.Length >= 6) // get heures
                 {
                     timeStart = new DateTime(2017, 01, 01, int.Parse(split[4]), int.Parse(split[5]), 0);
                     timeEnd = new DateTime(2017, 01, 01, int.Parse(split[6]), int.Parse(split[7]), 0);
                 }
 
-                if (split.Length >= 8)
+                ListModel model = null;
+                List<string> contact = null;
+                if (split.Length >= 8) // get jours
                 {
                     bool[] boolTab = new bool[7] { bool.Parse(split[8]), bool.Parse(split[9]), bool.Parse(split[10]), bool.Parse(split[11]), bool.Parse(split[12]), bool.Parse(split[13]), bool.Parse(split[14]) };
-                    ListModel model = new ListModel(bool.Parse(split[1]), split[0], split[2], null,  timeStart, timeEnd, boolTab, bool.Parse(split[3]));
-                    list.Add(model);
+                    model = new ListModel(bool.Parse(split[1]), split[0], split[2], null,  timeStart, timeEnd, boolTab, bool.Parse(split[3]));
+
+                    //build liste de contact
+                    contact = new List<string>();
+                    for(int i = 13; i < split.Length; i++)
+                        contact.Add(split[i]);
                 }
                 else
                 {
                     bool[] boolTab = new bool[7] { false, false, false, false, false, false, false };
-                    ListModel model = new ListModel(bool.Parse(split[1]), split[0], split[2], null, timeStart, timeEnd,boolTab, bool.Parse(split[3]));
-                    list.Add(model);
+                    model = new ListModel(bool.Parse(split[1]), split[0], split[2], null, timeStart, timeEnd,boolTab, bool.Parse(split[3]));
                 }
+
+                //add liste de contact
+                model.ContactsList = contact;
+
+                // ajout de la nouvelle liste
+                list.Add(model);
             }
 
         }

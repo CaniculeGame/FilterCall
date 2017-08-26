@@ -118,7 +118,9 @@ namespace AppTest1
             contactListView = FindViewById<ListView>(Resource.Id.contactListView);
             if (contactListView != null)
             {
+                contactListView.ChoiceMode = ChoiceMode.Multiple;
                 contactList = new List<ListModelContact>();
+
 
 
                 var uri = ContactsContract.Contacts.ContentUri;
@@ -136,6 +138,7 @@ namespace AppTest1
                     do
                     {
                         string num = "0";
+                        //recherche du numero associé au nom du contact
                         /*   if (int.Parse(cursor.GetString(cursor.GetColumnIndex(projection[2]))) > 0)
                            {
                                var uriPhoneNumber = ContactsContract.CommonDataKinds.Phone.ContentUri;
@@ -144,19 +147,26 @@ namespace AppTest1
                                var cursorPhone = (ICursor)phoneLoader.LoadInBackground();
 
 
+                             //verifie si on peux le selectionner ou pas
+
                              //  num = cursorPhone.GetString(cursorPhone.GetColumnIndex(projectionPhoneNumber[1]));
 
                            }*/
 
-                        contactList.Add(new ListModelContact(cursor.GetString(cursor.GetColumnIndex(projection[1])),
+
+                        ListModelContact ct = new ListModelContact(cursor.GetString(cursor.GetColumnIndex(projection[1])),
                             num,
-                            cursor.GetInt(cursor.GetColumnIndex(projection[0]))));
+                            cursor.GetInt(cursor.GetColumnIndex(projection[0])));
+
+                        contactList.Add(ct);
+
+
 
                     } while (cursor.MoveToNext());
                 }
 
 
-                //  Log.Info("info", contactList.Count.ToString());
+                Log.Info("info", contactList.Count.ToString());
 
                 contactListView.Adapter = new ListContactAdapter(this, contactList);
                 FindViewById<LinearLayout>(Resource.Id.linearLayoutScroll).LayoutParameters.Height = 110 * contactList.Count;
@@ -169,7 +179,7 @@ namespace AppTest1
                 if (DateFormat.Is24HourFormat(this))
                     hourEnd.SetIs24HourView(Java.Lang.Boolean.True);
 
-                hourEnd.TimeChanged += delegate 
+                hourEnd.TimeChanged += delegate
                 {
                     SetTimeFormat(hourStart, hourEnd, switchTime);
                 };
@@ -252,8 +262,8 @@ namespace AppTest1
                 {
                     Log.Info("info", "invert");
 
-                    message = GetString(Resource.String.from) +  "  00:00  " + GetString(Resource.String.to) +" "+ deb.Hour.ToString("00") + ":" + deb.Minute.ToString("00") + "  "
-                            + GetString(Resource.String.and) +"  "+ fin.Hour.ToString("00") + ":" + fin.Minute.ToString("00") + "  " +GetString(Resource.String.to) + "  23:59";
+                    message = GetString(Resource.String.from) + "  00:00  " + GetString(Resource.String.to) + " " + deb.Hour.ToString("00") + ":" + deb.Minute.ToString("00") + "  "
+                            + GetString(Resource.String.and) + "  " + fin.Hour.ToString("00") + ":" + fin.Minute.ToString("00") + "  " + GetString(Resource.String.to) + "  23:59";
 
                 }
                 else
@@ -311,11 +321,23 @@ namespace AppTest1
             if (timeEnd.CompareTo(timeStart) < 0)
                 return false;
 
+            //creation liste de contact
+            List<string> contactNum = new List<string>();
+            for(int i = 0; i < contactList.Count;i++)
+            {
+                if (contactList[i].IsSelectionne)
+                {
+                    Log.Info("contact", contactList[i].Numero);
+                    contactNum.Add(contactList[i].Numero);
+                }
+            }
+
             ListModel newItem = null;
             if (tabBool != null)
-                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, tabBool, switchTime);
+                newItem = new ListModel(true, titre.Text, message.Text, contactNum, timeStart, timeEnd, tabBool, switchTime);
             else
-                newItem = new ListModel(true, titre.Text, message.Text, null, timeStart, timeEnd, new bool[] { false, false, false, false, false, false, false }, switchTime);
+                newItem = new ListModel(true, titre.Text, message.Text, contactNum, timeStart, timeEnd, new bool[] { false, false, false, false, false, false, false }, switchTime);
+
 
             if (Global.Instance.IsInvalidPosition)
                 Global.Instance.Add(newItem);
