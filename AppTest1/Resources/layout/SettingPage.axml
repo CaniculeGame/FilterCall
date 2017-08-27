@@ -114,6 +114,21 @@
                 p1:text="@string/putMessage"
                 p1:textColor="@color/Blue0" />
             <TextView
+                p1:text="@string/unknownText"
+                p1:textAppearance="?android:attr/textAppearanceMedium"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/textUnkown" />
+            <Button
+                p1:text="@string/disable"
+                p1:layout_width="match_parent"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/buttonUnknow"
+                p1:background="@color/Black0"
+                p1:textColor="@color/Blue0"
+                p1:layout_gravity="right"
+                p1:gravity="fill_vertical" />
+            <TextView
                 p1:text="@string/choseBlackList"
                 p1:textAppearance="?android:attr/textAppearanceMedium"
                 p1:layout_width="match_parent"

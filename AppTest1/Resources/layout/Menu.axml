@@ -1,35 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Black1">
-    <TextView
-        android:text="@string/menu"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:background="@color/Black0" />
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1">
+        android:id="@+id/linearLayout4"
+        android:layout_gravity="top"
+        android:gravity="top"
+        android:layout_alignParentTop="true">
         <TextView
-            android:text="@string/bootStart"
+            android:text="@string/menu"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView1"
+            android:background="@color/Black0" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout1">
+            <TextView
+                android:text="@string/bootStart"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left" />
+            <Switch
+                android:id="@+id/switchStartBoot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:textOff="Off"
+                android:textOn="On"
+                android:showText="true" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout3"
+            android:gravity="center"
+            android:baselineAligned="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/pubTitre"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3" />
+            <TextView
+                android:text="@string/pubInstructions"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4" />
+            <Button
+                android:text="@string/pubButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonPub" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayoutCredit"
+        android:layout_gravity="end"
+        android:gravity="bottom"
+        android:layout_alignParentEnd="false"
+        android:layout_alignBottom="@id/linearLayoutCredit"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:text="@string/CreditTitre"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left" />
-        <Switch
-            android:id="@+id/switchStartBoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:textOff="Off"
-            android:textOn="On"
-            android:showText="true" />
+            android:id="@+id/textCredit"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal" />
+        <TextView
+            android:text="@string/credit"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textCreditEdit"
+            android:gravity="center" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

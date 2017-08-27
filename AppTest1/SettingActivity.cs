@@ -25,12 +25,14 @@ namespace AppTest1
         bool[] tabBool = null; // tableau de boolean contenant les dates d'applications
         Button cancelButton = null;
         Button choseDate = null;
+        Button unkownButton = null;
         EditText titre = null;
         TimePicker hourEnd = null;
         TimePicker hourStart = null;
         EditText message = null;
         ListView contactListView = null;
         bool switchTime = false;
+        bool switchUnknown = false;
         Button buttonTime = null;
 
         List<ListModelContact> contactList = null;
@@ -115,6 +117,20 @@ namespace AppTest1
                 };
             }
 
+            unkownButton = FindViewById<Button>(Resource.Id.buttonUnknow);
+            if (unkownButton != null)
+            {
+                unkownButton.Click += delegate
+                {
+                    switchUnknown = !switchUnknown;
+                    if (switchUnknown)
+                        unkownButton.Text = GetString(Resource.String.enable);
+                    else
+                        unkownButton.Text = GetString(Resource.String.disable);
+
+                };
+            }
+
 
             contactListView = FindViewById<ListView>(Resource.Id.contactListView);
             if (contactListView != null)
@@ -173,15 +189,17 @@ namespace AppTest1
                     } while (cursor.MoveToNext());//on passe a un autre contact
                 }
 
-
+                //renseignemant des numoro desja selectionné
                 foreach (var v in contactList)
                 {
-                   foreach(var ct in Global.Instance.GetElement(Global.Instance.Position).ContactsList)
-                    {
-                        if( v.Numero.Equals(ct))
-                            v.SetSelectionne = true;
-                    }
+                    if (Global.Instance.GetElement(Global.Instance.Position) != null)
+                        foreach (var ct in Global.Instance.GetElement(Global.Instance.Position).ContactsList)
+                        {
+                            if (v.Numero.Equals(ct))
+                                v.SetSelectionne = true;
+                        }
                 }
+
 
                 contactListView.Adapter = new ListContactAdapter(this, contactList);
                 FindViewById<LinearLayout>(Resource.Id.linearLayoutScroll).LayoutParameters.Height = 110 * contactList.Count;
@@ -234,6 +252,11 @@ namespace AppTest1
                     message.Text = Global.Instance.GetElement(Global.Instance.Position).MessageText;
 
                     switchTime = Global.Instance.GetElement(Global.Instance.Position).Invert;
+                    switchUnknown = Global.Instance.GetElement(Global.Instance.Position).IsUnknownNumberEnable;
+                    if (switchUnknown)
+                        unkownButton.Text = GetString(Resource.String.enable);
+                    else
+                        unkownButton.Text = GetString(Resource.String.disable);
                     SetTimeFormat(hourStart, hourEnd, switchTime);
 
                 }
@@ -349,9 +372,9 @@ namespace AppTest1
 
             ListModel newItem = null;
             if (tabBool != null)
-                newItem = new ListModel(true, titre.Text, message.Text, contactNum, timeStart, timeEnd, tabBool, switchTime);
+                newItem = new ListModel(true, titre.Text, message.Text, contactNum, timeStart, timeEnd, tabBool, switchTime, switchUnknown);
             else
-                newItem = new ListModel(true, titre.Text, message.Text, contactNum, timeStart, timeEnd, new bool[] { false, false, false, false, false, false, false }, switchTime);
+                newItem = new ListModel(true, titre.Text, message.Text, contactNum, timeStart, timeEnd, new bool[] { false, false, false, false, false, false, false }, switchTime, switchUnknown);
 
 
             if (Global.Instance.IsInvalidPosition)

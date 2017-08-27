@@ -13,6 +13,8 @@ using Android.Util;
 using System.IO;
 using static Android.Resource;
 using Android.Preferences;
+using Android.Provider;
+using Android.Database;
 
 namespace AppTest1
 {
@@ -43,12 +45,12 @@ namespace AppTest1
             Log.Info("info", "Global constructeur");
             if (list == null)
                 list = new List<ListModel>();
-           // SaveList();
+            // SaveList();
             LoadList();
             position_ = InvalideValue;
         }
 
-        public List<ListModel> GetList { get { return list; }}
+        public List<ListModel> GetList { get { return list; } }
         public ListModel GetElement(int posElement) { if (list.Count > posElement && posElement >= 0) return list[posElement]; else return null; }
         public void SetElement(int positionElem, ListModel newElement)
         {
@@ -57,15 +59,15 @@ namespace AppTest1
                     list[positionElem] = newElement;
 
         }
-        public void SetDay(int positionElem,bool[] tab)
+        public void SetDay(int positionElem, bool[] tab)
         {
             if (list != null)
                 if (list.Count > positionElem && positionElem >= 0)
                     list[positionElem].Days = tab;
         }
 
-        public void Add(ListModel value) { if (list != null) { list.Add(value); } else { list = new List<ListModel>();list.Add(value); } }
-        public int Position { set { position_ = value; }  get { return position_; } }
+        public void Add(ListModel value) { if (list != null) { list.Add(value); } else { list = new List<ListModel>(); list.Add(value); } }
+        public int Position { set { position_ = value; } get { return position_; } }
         public bool IsInvalidPosition { get { return position_ == InvalideValue ? true : false; } }
         public bool BootStart { get { return startedAppBoot_; } set { startedAppBoot_ = value; } }
 
@@ -78,10 +80,11 @@ namespace AppTest1
             string[] saveList = new string[list.Count];
             for (int i = 0; i < saveList.Length; i++)
             {
-                if(list[i].ContactsList != null)
-                    list[i].ContactsList.Sort(); 
+                if (list[i].ContactsList != null)
+                    list[i].ContactsList.Sort();
 
-                saveList[i] = list[i].Titre + ":" + list[i].SwitchState + ":" + list[i].MessageText +":"+ list[i].Invert + ":" + list[i].HourStart.Hour +":"+ list[i].HourStart.Minute + ":" + list[i].HourEnd.Hour + ":" + list[i].HourEnd.Minute;
+                saveList[i] = list[i].Titre + ":" + list[i].SwitchState + ":" + list[i].MessageText + ":" + list[i].Invert + ":" + list[i].HourStart.Hour + ":" + list[i].HourStart.Minute + ":" + list[i].HourEnd.Hour + ":" + list[i].HourEnd.Minute;
+                saveList[i] = saveList[i] + ":" + list[i].IsUnknownNumberEnable;
                 if (list[i].Days != null)
                 {
                     for (int j = 0; j < list[i].Days.Length; j++)
@@ -94,13 +97,14 @@ namespace AppTest1
                         saveList[i] = saveList[i] + ":false";
                 }
 
-                if(list[i].ContactsList != null)
-                    foreach(string v in list[i].ContactsList)
-                        saveList[i] = saveList[i] + ":"+v;
+                if (list[i].ContactsList != null)
+                    foreach (string v in list[i].ContactsList)
+                        saveList[i] = saveList[i] + ":" + v;
             }
 
             System.IO.File.WriteAllLines(filePath, saveList);
-            Log.Info("save", "Save complete  " + saveList[0]);
+            if (saveList != null && saveList.Length > 0)
+                Log.Info("save", "Save complete  " + saveList[0]);
         }
 
 
@@ -128,20 +132,20 @@ namespace AppTest1
 
                 ListModel model = null;
                 List<string> contact = null;
-                if (split.Length >= 8) // get jours
+                if (split.Length >= 9) // get jours
                 {
-                    bool[] boolTab = new bool[7] { bool.Parse(split[8]), bool.Parse(split[9]), bool.Parse(split[10]), bool.Parse(split[11]), bool.Parse(split[12]), bool.Parse(split[13]), bool.Parse(split[14]) };
-                    model = new ListModel(bool.Parse(split[1]), split[0], split[2], null,  timeStart, timeEnd, boolTab, bool.Parse(split[3]));
+                    bool[] boolTab = new bool[7] { bool.Parse(split[9]), bool.Parse(split[10]), bool.Parse(split[11]), bool.Parse(split[12]), bool.Parse(split[13]), bool.Parse(split[14]), bool.Parse(split[15]) };
+                    model = new ListModel(bool.Parse(split[1]), split[0], split[2], null, timeStart, timeEnd, boolTab, bool.Parse(split[3]), bool.Parse(split[8]));
 
                     //build liste de contact
                     contact = new List<string>();
-                    for(int i = 13; i < split.Length; i++)
+                    for (int i = 16; i < split.Length; i++)
                         contact.Add(split[i]);
                 }
                 else
                 {
                     bool[] boolTab = new bool[7] { false, false, false, false, false, false, false };
-                    model = new ListModel(bool.Parse(split[1]), split[0], split[2], null, timeStart, timeEnd,boolTab, bool.Parse(split[3]));
+                    model = new ListModel(bool.Parse(split[1]), split[0], split[2], null, timeStart, timeEnd, boolTab, bool.Parse(split[3]), bool.Parse(split[8]));
                 }
 
                 //add liste de contact
@@ -169,7 +173,7 @@ namespace AppTest1
 
 
 
-        public bool SearchPhoneNumber(string number, out short idlst)
+        public bool SearchPhoneNumber(string number, out short idlst, Context context)
         {
             bool trouver = true;
             idlst = 0;
@@ -193,10 +197,10 @@ namespace AppTest1
 
                     //on a inversé les plages horraies, on ne veux pas avoir les appel dans la tranche designée
                     //on test si on est dans la tranche horraire
-                    if ( lst.HourStart.Hour >= DateTime.Now.Hour && lst.HourEnd.Hour <= DateTime.Now.Hour)
+                    if (lst.HourStart.Hour >= DateTime.Now.Hour && lst.HourEnd.Hour <= DateTime.Now.Hour)
                     {
-                        if(lst.HourStart.Hour == DateTime.Now.Hour)
-                            if(lst.HourStart.Minute >= DateTime.Now.Minute)
+                        if (lst.HourStart.Hour == DateTime.Now.Hour)
+                            if (lst.HourStart.Minute >= DateTime.Now.Minute)
                                 continuerTraitement = true;
 
                         if (lst.HourEnd.Hour == DateTime.Now.Hour)
@@ -213,12 +217,43 @@ namespace AppTest1
                         continuerTraitement = false;
                     // on test si quand on est a la mm heure on a les bonnes minutes
                     else if ((lst.HourStart.Hour == DateTime.Now.Hour && lst.HourStart.Minute < DateTime.Now.Minute) &&
-                        (lst.HourEnd.Hour == DateTime.Now.Hour && lst.HourEnd.Minute < DateTime.Now.Minute) )
+                        (lst.HourEnd.Hour == DateTime.Now.Hour && lst.HourEnd.Minute < DateTime.Now.Minute))
                         continuerTraitement = false;
                 }
 
                 if (!continuerTraitement)
                     continue;
+
+                //si on recal les num qui sont pas dans le repertoire
+                if (lst.IsUnknownNumberEnable)
+                {
+                    //on cherche son existance, si pas trouvé on retourne qu'on a trouvé afin d'envoyer la reponse auto et stoper le calcul
+                    // si on trouve le num alors on continue le traitemetn
+                    var uri = ContactsContract.CommonDataKinds.Phone.ContentUri;
+                    string[] projectionNumber = { ContactsContract.Contacts.InterfaceConsts.NameRawContactId, ContactsContract.CommonDataKinds.Phone.Number };
+                    var loaderNumber = new CursorLoader(context, uri, projectionNumber, null, null, null);
+                    var cursorNumber = (ICursor)loaderNumber.LoadInBackground();
+
+                    if (cursorNumber.MoveToFirst()) //...on cherche le num asocié
+                    {
+                        bool numTrouver = false;
+                        do
+                        {
+                            //num trouvé dans contact, on met fin a la recherche
+                            if (cursorNumber.GetString(cursorNumber.GetColumnIndex(projectionNumber[1])).Equals(number))
+                            {
+                                cursorNumber.MoveToLast();
+                                numTrouver = true;
+                            }
+                        }
+                        while (cursorNumber.MoveToNext());
+
+                        //on a pas trouvé. On quitte. En effet on a fait ce test car on doit blocker les num inconnues dans la liste de contact
+                        if (!numTrouver)
+                            return true;
+                    }
+                }
+
 
                 int debut = 0;
                 int fin = lst.ContactsList.Count - 1;

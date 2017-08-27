@@ -52,4 +52,24 @@
   <string name="and"> And </string>
   <string name="from"> From </string>
 
+  <string name="unknownText">Block unknow number</string>
+  <string name="enable">Enable</string>
+  <string name="disable">Disable</string>
+
+  <string name="CreditTitre">Credit</string>
+  <string name="credit">\n
+    PROGRAMMER \n
+    Bugar \n\n
+    ICON \n
+    Icon Rubbish Bin made by  http://icon-works.com from www.flaticon.com  \n
+    Icon Save made by  http://fontawesome.io from www.flaticon.com  \n
+    Icon Cancel made by  http://www.meanicons.com from www.flaticon.com  \n
+    Icon Add made by  Hanan from www.flaticon.com  \n
+    Other icon by me :)
+  </string>
+
+  <string name="pubTitre">Contribuate</string>
+  <string name="pubInstructions">If you would like to help me to eat, click on the button to see an advertisement (only 30 sec) ;)</string>
+  <string name="pubButton">watch an advertisement</string>
+  
 </resources>

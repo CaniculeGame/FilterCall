@@ -36,7 +36,7 @@ namespace AppTest1
                 if (intent.GetStringExtra(TelephonyManager.ExtraState).Equals(TelephonyManager.ExtraStateRinging))
                 {
                     string number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
-                    if (Global.Instance.SearchPhoneNumber(number, out idList))
+                    if (Global.Instance.SearchPhoneNumber(number, out idList, context))
                     {
                         execute(context, number, idList);
 
@@ -56,7 +56,7 @@ namespace AppTest1
             {
                 SmsMessage[] msgs = Telephony.Sms.Intents.GetMessagesFromIntent(intent);
                 Log.Info("info", "number = " + msgs[0].OriginatingAddress);
-                if (Global.Instance.SearchPhoneNumber(msgs[0].OriginatingAddress, out idList))
+                if (Global.Instance.SearchPhoneNumber(msgs[0].OriginatingAddress, out idList, context))
                 {
                     execute(context, msgs[0].OriginatingAddress, idList);
                 }

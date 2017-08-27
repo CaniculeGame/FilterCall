@@ -17,10 +17,12 @@ namespace AppTest1
     {
 
         Switch bootStartButton = null;
+        Button advertButton = null;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            RequestWindowFeature(Android.Views.WindowFeatures.NoTitle);
 
             SetContentView(Resource.Layout.Menu);
 
@@ -32,6 +34,15 @@ namespace AppTest1
                 bootStartButton.Click += delegate
                 {
                     OnButtonBootStartClicked();
+                };
+            }
+
+            advertButton = FindViewById<Button>(Resource.Id.buttonPub);
+            if (advertButton != null)
+            {
+                advertButton.Click += delegate
+                {
+                    //TODO
                 };
             }
         }
